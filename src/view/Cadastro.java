@@ -630,22 +630,18 @@ public class Cadastro extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         try {
-            ClienteDAO cliente = new ClienteDAO(nomeArquivo);
-
+            String nome = inputNome.getText();
             String itemSelecionado = jComboBoxTipo.getSelectedItem().toString();
-
-            ClienteDAO cadastroClientes = new ClienteDAO(nomeArquivo);
-            ArrayList<Cliente> listaDeClientes = cadastroClientes.recuperar();
-
-            for (int pos = 0; pos < listaDeClientes.size(); pos++) {
-                Cliente aux = listaDeClientes.get(pos);
-                if (aux.getNome().equals(inputNome.getText())) {
-                    Cliente objeto = new Cliente(aux.getId(), inputNome.getText(), inputFone.getText(), inputCPF.getText(), inputSexo.getText(), inputCEP.getText(), inputLogradouro.getText(), inputComplemento.getText(), inputBairro.getText(), inputCidade.getText(), inputUF.getText(), inputDataNasc.getText(), itemSelecionado, this.img);
-                    cliente.excluir(inputNome.getText());
-                    cliente.incluir(objeto);
-                }
-            }
-
+            
+            ClienteDAO cliente = new ClienteDAO(nomeArquivo);
+            
+            int id = cliente.recuperar().size();
+            //int id = 0;
+            
+            Cliente objeto = new Cliente(id, inputNome.getText(), inputFone.getText(), inputCPF.getText(), inputSexo.getText(), inputCEP.getText(), inputLogradouro.getText(), inputComplemento.getText(), inputBairro.getText(), inputCidade.getText(), inputUF.getText(), inputDataNasc.getText(), itemSelecionado, this.img);
+            
+            cliente.alterar(nome, objeto);
+            
             listarCadastros();
             limparCampos();
         } catch (Exception ex) {

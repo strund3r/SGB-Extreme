@@ -45,6 +45,23 @@ public class ClienteDAO implements CRUD {
             throw erro;
         }
     }
+    
+    @Override
+    public void alterar(String nome, Cliente dados) throws Exception {
+        try {
+            ArrayList<Cliente> listaDeClientes = this.recuperar();
+            
+            for (int pos = 0; pos < listaDeClientes.size(); pos++) {
+                Cliente aux = listaDeClientes.get(pos);
+                if (aux.getNome().equals(nome)) {
+                    this.excluir(nome);
+                    this.incluir(dados);
+                }
+            }
+        } catch (Exception erro) {
+            throw erro;
+        }
+    }
 
     @Override
     public void excluir(String nome) throws Exception {
