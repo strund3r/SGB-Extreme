@@ -11,10 +11,12 @@ import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-import regras_de_negocio.Cliente;
 import persistencia.ClienteDAO;
+import regras_de_negocio.Cliente;
 import viacep.ViaCEP;
 import viacep.ViaCEPException;
+
+
 
 public class Cadastro extends javax.swing.JFrame {
 
@@ -22,11 +24,13 @@ public class Cadastro extends javax.swing.JFrame {
                               //"C:\\Users\\tally\\Documents\\cadastro.csv";
     private String img;
     
-    int clic_tabla;
+    private int clic_tabla;
     
     public Cadastro() {
         initComponents();
         this.getContentPane().setBackground(Color.WHITE);
+        
+        listarCadastros();
     }
 
     @SuppressWarnings("unchecked")
@@ -66,7 +70,6 @@ public class Cadastro extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         inputBuscarCadastro = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        btnListarCadastros = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaCadastroCliente = new javax.swing.JTable();
 
@@ -351,6 +354,11 @@ public class Cadastro extends javax.swing.JFrame {
         });
 
         btnAlterar.setText("ALTERAR");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setText("EXCLUIR");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -373,13 +381,6 @@ public class Cadastro extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(102, 102, 102));
         jLabel6.setText("BUSCAR");
 
-        btnListarCadastros.setText("LISTAR");
-        btnListarCadastros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListarCadastrosActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -388,12 +389,10 @@ public class Cadastro extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnCadastrar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnListarCadastros)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAlterar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 197, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inputBuscarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -412,8 +411,7 @@ public class Cadastro extends javax.swing.JFrame {
                                 .addComponent(inputBuscarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(btnAlterar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnListarCadastros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -456,7 +454,7 @@ public class Cadastro extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -538,6 +536,8 @@ public class Cadastro extends javax.swing.JFrame {
             ClienteDAO cliente = new ClienteDAO(nomeArquivo);
 
             int id = cliente.recuperar().size();
+            //int id = 0;
+            
             String itemSelecionado = jComboBoxTipo.getSelectedItem().toString();
 
             Cliente objeto = new Cliente(id, inputNome.getText(), inputFone.getText(), inputCPF.getText(), inputSexo.getText(), inputCEP.getText(), inputLogradouro.getText(), inputComplemento.getText(), inputBairro.getText(), inputCidade.getText(), inputUF.getText(), inputDataNasc.getText(), itemSelecionado, this.img);
@@ -576,25 +576,21 @@ public class Cadastro extends javax.swing.JFrame {
         tr.setRowFilter(RowFilter.regexFilter(search));
     }//GEN-LAST:event_inputBuscarCadastroKeyReleased
 
-    private void btnListarCadastrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarCadastrosActionPerformed
-        listarCadastros();
-    }//GEN-LAST:event_btnListarCadastrosActionPerformed
-
     private void tabelaCadastroClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCadastroClienteMouseClicked
-        clic_tabla = tabelaCadastroCliente.rowAtPoint(evt.getPoint());
+        this.clic_tabla = tabelaCadastroCliente.rowAtPoint(evt.getPoint());
         
-        Object nome = tabelaCadastroCliente.getValueAt(clic_tabla, 0);
-        Object fone = tabelaCadastroCliente.getValueAt(clic_tabla, 1);
-        Object cpf = tabelaCadastroCliente.getValueAt(clic_tabla, 2);
-        Object sexo = tabelaCadastroCliente.getValueAt(clic_tabla, 3);
-        Object cep = tabelaCadastroCliente.getValueAt(clic_tabla, 4);
-        Object logradouro = tabelaCadastroCliente.getValueAt(clic_tabla, 5);
-        Object complemento = tabelaCadastroCliente.getValueAt(clic_tabla, 6);
-        Object bairro = tabelaCadastroCliente.getValueAt(clic_tabla, 7);
-        Object cidade = tabelaCadastroCliente.getValueAt(clic_tabla, 8);
-        Object Uf = tabelaCadastroCliente.getValueAt(clic_tabla, 9);
-        Object dataNasc = tabelaCadastroCliente.getValueAt(clic_tabla, 10);
-        Object tipo = tabelaCadastroCliente.getValueAt(clic_tabla, 11);
+        Object nome = tabelaCadastroCliente.getValueAt(this.clic_tabla, 0);
+        Object fone = tabelaCadastroCliente.getValueAt(this.clic_tabla, 1);
+        Object cpf = tabelaCadastroCliente.getValueAt(this.clic_tabla, 2);
+        Object sexo = tabelaCadastroCliente.getValueAt(this.clic_tabla, 3);
+        Object cep = tabelaCadastroCliente.getValueAt(this.clic_tabla, 4);
+        Object logradouro = tabelaCadastroCliente.getValueAt(this.clic_tabla, 5);
+        Object complemento = tabelaCadastroCliente.getValueAt(this.clic_tabla, 6);
+        Object bairro = tabelaCadastroCliente.getValueAt(this.clic_tabla, 7);
+        Object cidade = tabelaCadastroCliente.getValueAt(this.clic_tabla, 8);
+        Object Uf = tabelaCadastroCliente.getValueAt(this.clic_tabla, 9);
+        Object dataNasc = tabelaCadastroCliente.getValueAt(this.clic_tabla, 10);
+        Object tipo = tabelaCadastroCliente.getValueAt(this.clic_tabla, 11);
         
         inputNome.setText(String.valueOf(nome));
         inputFone.setText(String.valueOf(fone));
@@ -632,6 +628,31 @@ public class Cadastro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        try {
+            ClienteDAO cliente = new ClienteDAO(nomeArquivo);
+
+            String itemSelecionado = jComboBoxTipo.getSelectedItem().toString();
+
+            ClienteDAO cadastroClientes = new ClienteDAO(nomeArquivo);
+            ArrayList<Cliente> listaDeClientes = cadastroClientes.recuperar();
+
+            for (int pos = 0; pos < listaDeClientes.size(); pos++) {
+                Cliente aux = listaDeClientes.get(pos);
+                if (aux.getNome().equals(inputNome.getText())) {
+                    Cliente objeto = new Cliente(aux.getId(), inputNome.getText(), inputFone.getText(), inputCPF.getText(), inputSexo.getText(), inputCEP.getText(), inputLogradouro.getText(), inputComplemento.getText(), inputBairro.getText(), inputCidade.getText(), inputUF.getText(), inputDataNasc.getText(), itemSelecionado, this.img);
+                    cliente.excluir(inputNome.getText());
+                    cliente.incluir(objeto);
+                }
+            }
+
+            listarCadastros();
+            limparCampos();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -665,7 +686,6 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnListarCadastros;
     private javax.swing.JPanel cardCadastro;
     private javax.swing.JLabel fotoCadastro;
     private javax.swing.JTextField inputBairro;

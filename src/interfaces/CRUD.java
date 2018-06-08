@@ -1,6 +1,6 @@
 package interfaces;
-import regras_de_negocio.Cliente;
 import java.util.ArrayList;
+import regras_de_negocio.Cliente;
 
 public interface CRUD {
     void incluir(Cliente objeto) throws Exception;

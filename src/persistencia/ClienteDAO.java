@@ -28,9 +28,9 @@ public class ClienteDAO implements CRUD {
     }
 
     @Override
-    public ArrayList < Cliente > recuperar() throws Exception {
+    public ArrayList <Cliente> recuperar() throws Exception {
         try {
-            ArrayList < Cliente > listaDeClientes = new ArrayList < > ();
+            ArrayList<Cliente> listaDeClientes = new ArrayList<>();
             FileReader fr = new FileReader(nomeDoArquivo);
             BufferedReader br = new BufferedReader(fr);
             String linha = "";
@@ -49,7 +49,7 @@ public class ClienteDAO implements CRUD {
     @Override
     public void excluir(String nome) throws Exception {
         try {
-            ArrayList < Cliente > listaDeClientes = this.recuperar();
+            ArrayList<Cliente> listaDeClientes = this.recuperar();
             //cria o arquivo
             FileWriter fw = new FileWriter(nomeDoArquivo);
             //Criar o buffer do arquivo
