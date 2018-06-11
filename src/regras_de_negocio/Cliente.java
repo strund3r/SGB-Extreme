@@ -8,6 +8,7 @@ public class Cliente implements TratamentoDeDados{
     private String nome;
     private String fone;
     private String cpf;
+    private String email;
     private String sexo;
     private String cep;
     private String logradouro;
@@ -16,14 +17,16 @@ public class Cliente implements TratamentoDeDados{
     private String cidade;
     private String Uf;
     private String dataNasc;
+    private String matricula;
     private String tipo;
     private String caminhoIMG;
 
-    public Cliente(int id, String nome, String fone, String cpf, String sexo, String cep, String logradouro, String complemento, String bairro, String cidade, String uf, String dataNasc, String tipo, String caminho) {
+    public Cliente(int id, String nome, String fone, String cpf, String email, String sexo, String cep, String logradouro, String complemento, String bairro, String cidade, String uf, String dataNasc, String matricula, String tipo, String caminho) {
         this.id = id;
         this.nome = nome;
         this.fone = fone;
         this.cpf = cpf;
+        this.email = email;
         this.sexo = sexo;
         this.cep = cep;
         this.logradouro = logradouro;
@@ -32,6 +35,7 @@ public class Cliente implements TratamentoDeDados{
         this.cidade = cidade;
         this.Uf = uf;
         this.dataNasc = dataNasc;
+        this.matricula = matricula;
         this.tipo = tipo;
         this.caminhoIMG = caminho;
     }
@@ -52,6 +56,10 @@ public class Cliente implements TratamentoDeDados{
 
     public String getCpf() {
         return cpf;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public String getSexo() {
@@ -90,10 +98,14 @@ public class Cliente implements TratamentoDeDados{
         return tipo;
     }
 
+    public String getMatricula() {
+        return matricula;
+    }
+
     public String getCaminhoIMG() {
         return caminhoIMG;
     }
-    
+
     public void setId(int id) {
         this.id = id;
     }
@@ -108,6 +120,10 @@ public class Cliente implements TratamentoDeDados{
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setSexo(String sexo) {
@@ -146,6 +162,10 @@ public class Cliente implements TratamentoDeDados{
         this.tipo = tipo;
     }
 
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
     public void setCaminhoIMG(String caminhoIMG) {
         this.caminhoIMG = caminhoIMG;
     }
@@ -153,7 +173,7 @@ public class Cliente implements TratamentoDeDados{
     @Override
     public void materializar(String dados) throws Exception {
         String vetorString[] = dados.split(";");
-        if(vetorString.length != 14) {
+        if(vetorString.length != 16) {
             for (String posicao : vetorString) {
                 throw new Exception("Faltam dados na String " + posicao);
             }
@@ -164,16 +184,18 @@ public class Cliente implements TratamentoDeDados{
         setNome(vetorString[1]);
         setFone(vetorString[2]);
         setCpf(vetorString[3]);
-        setSexo(vetorString[4]);
-        setCep(vetorString[5]);
-        setLogradouro(vetorString[6]);
-        setComplemento(vetorString[7]);
-        setBairro(vetorString[8]);
-        setCidade(vetorString[9]);
-        setUf(vetorString[10]);
-        setDataNasc(vetorString[11]);
-        setTipo(vetorString[12]);
-        setCaminhoIMG(vetorString[13]);
+        setEmail(vetorString[4]);
+        setSexo(vetorString[5]);
+        setCep(vetorString[6]);
+        setLogradouro(vetorString[7]);
+        setComplemento(vetorString[8]);
+        setBairro(vetorString[9]);
+        setCidade(vetorString[10]);
+        setUf(vetorString[11]);
+        setDataNasc(vetorString[12]);
+        setMatricula(vetorString[13]);
+        setTipo(vetorString[14]);
+        setCaminhoIMG(vetorString[15]);
     }
 
     @Override
@@ -182,6 +204,7 @@ public class Cliente implements TratamentoDeDados{
                     + getNome() + ";"
                     + getFone() + ";"
                     + getCpf() + ";"
+                    + getEmail() + ";"
                     + getSexo() + ";"
                     + getCep() + ";"
                     + getLogradouro() + ";"
@@ -190,7 +213,8 @@ public class Cliente implements TratamentoDeDados{
                     + getCidade() + ";"
                     + getUf() + ";"
                     + getDataNasc() + ";"
-                    + getTipo()+ ";"
+                    + getMatricula() + ";"
+                    + getTipo() + ";"
                     + getCaminhoIMG();
         return saida;
     }   
