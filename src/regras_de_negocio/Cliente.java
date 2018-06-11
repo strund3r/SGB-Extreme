@@ -22,30 +22,16 @@ public class Cliente implements TratamentoDeDados{
     private String caminhoIMG;
 
     public Cliente(int id, String nome, String fone, String cpf, String email, String sexo, String cep, String logradouro, String complemento, String bairro, String cidade, String uf, String dataNasc, String matricula, String tipo, String caminho) throws Exception {
-        if(nome.isEmpty()){
-            throw new Exception("Preencha o campo Nome");
+        
+        Boolean[] empty = {nome.isEmpty(),fone.replaceAll("[^0-9]", "").isEmpty(),cpf.replaceAll("[^0-9]", "").isEmpty(),logradouro.isEmpty(),bairro.isEmpty(),cidade.isEmpty(),uf.isEmpty(),matricula.replaceAll("[^0-9]", "").isEmpty()};
+        String[] excessao = {"Nome","Telefone","CPF","Rua","Bairro","Cidade","UF","Matricula"};
+        
+        for (int i = 0; i < empty.length; i++) {
+            if (empty[i]) {
+                throw new Exception("Preencha o campo " + excessao[i]);
+            }
         }
-        if(fone.replaceAll("[^0-9]", "").isEmpty()){
-            throw new Exception("Preencha o campo Telefone");
-        }
-        if(cpf.replaceAll("[^0-9]", "").isEmpty()){
-            throw new Exception("Preencha o campo CPF");
-        }
-        if(logradouro.isEmpty()){
-            throw new Exception("Preencha o campo Rua");
-        }
-        if(bairro.isEmpty()){
-            throw new Exception("Preencha o campo Bairro");
-        }
-        if(cidade.isEmpty()){
-            throw new Exception("Preencha o campo Cidade");
-        }
-        if(uf.isEmpty()){
-            throw new Exception("Preencha o campo UF");
-        }
-        if(matricula.replaceAll("[^0-9]", "").isEmpty()){
-            throw new Exception("Preencha o campo Matricula");
-        }
+
         this.id = id;
         this.nome = nome;
         this.fone = fone;
@@ -198,13 +184,14 @@ public class Cliente implements TratamentoDeDados{
     public void materializar(String dados) throws Exception {
         String vetorString[] = dados.split(";");
         if(vetorString.length != 16) {
-            for (String posicao : vetorString) {
-                throw new Exception("Faltam dados na String " + posicao);
+            for (int i = 0; i < vetorString.length; i++) {
+                throw new Exception("Faltam dados na posição " + i);
             }
         }
   
-        String idString = vetorString[0];
-        setId(Integer.parseInt(idString));
+        int id = Integer.parseInt(vetorString[0]);
+        
+        setId(id);
         setNome(vetorString[1]);
         setFone(vetorString[2]);
         setCpf(vetorString[3]);

@@ -532,23 +532,25 @@ public class Cadastro extends javax.swing.JFrame {
             //Limpa a tabela 
             model.setNumRows(0);
             for (int i = 0; i < listaDeClientes.size(); i++) {
-                String[] saida = new String[15];
                 Cliente aux = listaDeClientes.get(i);
-                saida[0] = String.valueOf(aux.getId());
-                saida[1] = aux.getNome();
-                saida[2] = aux.getFone();
-                saida[3] = aux.getCpf();
-                saida[4] = aux.getEmail();
-                saida[5] = aux.getSexo();
-                saida[6] = aux.getCep();
-                saida[7] = aux.getLogradouro();
-                saida[8] = aux.getComplemento();
-                saida[9] = aux.getBairro();
-                saida[10] = aux.getCidade();
-                saida[11] = aux.getUf();
-                saida[12] = aux.getDataNasc();
-                saida[13] = aux.getMatricula();
-                saida[14] = aux.getTipo();
+                
+                String[] saida = {
+                    String.valueOf(aux.getId()),
+                    aux.getNome(),
+                    aux.getFone(),
+                    aux.getCpf(),
+                    aux.getEmail(),
+                    aux.getSexo(),
+                    aux.getCep(),
+                    aux.getLogradouro(),
+                    aux.getComplemento(),
+                    aux.getBairro(),
+                    aux.getCidade(),
+                    aux.getUf(),
+                    aux.getDataNasc(),
+                    aux.getMatricula(),
+                    aux.getTipo()
+                };
                 //Incluir nova linha na Tabela
                 model.addRow(saida);
             }
