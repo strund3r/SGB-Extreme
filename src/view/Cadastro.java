@@ -7,7 +7,6 @@ import java.io.File;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -47,7 +46,7 @@ public class Cadastro extends javax.swing.JFrame {
         inputUF = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         inputCidade = new javax.swing.JTextField();
-        msgErroCEP = new javax.swing.JLabel();
+        msgErro = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         inputComplemento = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -127,10 +126,10 @@ public class Cadastro extends javax.swing.JFrame {
         inputCidade.setMaximumSize(new java.awt.Dimension(250, 30));
         inputCidade.setMinimumSize(new java.awt.Dimension(200, 30));
 
-        msgErroCEP.setBackground(new java.awt.Color(204, 0, 0));
-        msgErroCEP.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        msgErroCEP.setForeground(new java.awt.Color(255, 51, 51));
-        msgErroCEP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        msgErro.setBackground(new java.awt.Color(204, 0, 0));
+        msgErro.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        msgErro.setForeground(new java.awt.Color(255, 51, 51));
+        msgErro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -337,11 +336,9 @@ public class Cadastro extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(inputDataNasc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cardCadastroLayout.createSequentialGroup()
-                        .addComponent(msgErroCEP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addComponent(inputDataNasc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(msgErro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(cardCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(fotoCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAbrirFoto))
@@ -391,21 +388,20 @@ public class Cadastro extends javax.swing.JFrame {
                         .addGroup(cardCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(cardCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(cardCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(inputCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(cardCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(inputComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(inputComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(inputCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(inputUF, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(cardCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(cardCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(msgErroCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(cardCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(inputMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(msgErro, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -520,7 +516,7 @@ public class Cadastro extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -556,8 +552,8 @@ public class Cadastro extends javax.swing.JFrame {
                 //Incluir nova linha na Tabela
                 model.addRow(saida);
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }
     
@@ -598,7 +594,7 @@ public class Cadastro extends javax.swing.JFrame {
         if(inputCEP.getText().length()>9){
             throw new Exception("CEP Ultrapassa a quantidade de digitos");
         }else{
-            msgErroCEP.setText("");
+            msgErro.setText("");
         }
     }
     
@@ -606,33 +602,33 @@ public class Cadastro extends javax.swing.JFrame {
         try {
             ClienteDAO cliente = new ClienteDAO(nomeArquivo);
             
+            int id = cliente.autoincrement();
+            String nome = inputNome.getText();
+            String telefone = inputFone.getText();
+            String cpf = inputCPF.getText();
+            String email = inputEmail.getText();
+            String sexo = inputSexo.getText();
+            String cep = inputCEP.getText();
+            String logradouro = inputLogradouro.getText();
+            String complemento = inputComplemento.getText();
+            String bairro = inputBairro.getText();
+            String cidade = inputCidade.getText();
+            String uf = inputUF.getText();
+            String dataNasc = inputDataNasc.getText();
+            String matricula = inputMatricula.getText();
             String itemSelecionado = jComboBoxTipo.getSelectedItem().toString();
 
-            Cliente objeto = new Cliente(
-                    cliente.autoincrement(),
-                    inputNome.getText(),
-                    inputFone.getText(),
-                    inputCPF.getText(),
-                    inputEmail.getText(),
-                    inputSexo.getText(),
-                    inputCEP.getText(),
-                    inputLogradouro.getText(),
-                    inputComplemento.getText(),
-                    inputBairro.getText(),
-                    inputCidade.getText(),
-                    inputUF.getText(),
-                    inputDataNasc.getText(),
-                    inputMatricula.getText(),
-                    itemSelecionado,
-                    this.img);
+            Cliente objeto = new Cliente(id,nome,telefone,cpf,email,sexo,cep,logradouro,complemento,bairro,cidade,uf,dataNasc,matricula,itemSelecionado,this.img);
 
             cliente.incluir(objeto);
             
             listarCadastros();
             limparCampos();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, e.getMessage());
-            System.out.println(e.getMessage());
+            
+            msgErro.setText("");
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            msgErro.setText(ex.getMessage());
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -705,51 +701,55 @@ public class Cadastro extends javax.swing.JFrame {
             
             listarCadastros();
             limparCampos();
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+
+            msgErro.setText("");
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            msgErro.setText(ex.getMessage());
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         try {
-            int id = Integer.parseInt(inputID.getText());
-            String itemSelecionado = jComboBoxTipo.getSelectedItem().toString();
-            
             ClienteDAO cliente = new ClienteDAO(nomeArquivo);
             
-            Cliente objeto = new Cliente(
-                    id,
-                    inputNome.getText(),
-                    inputFone.getText(),
-                    inputCPF.getText(),
-                    inputEmail.getText(),
-                    inputSexo.getText(),
-                    inputCEP.getText(),
-                    inputLogradouro.getText(),
-                    inputComplemento.getText(),
-                    inputBairro.getText(),
-                    inputCidade.getText(),
-                    inputUF.getText(),
-                    inputDataNasc.getText(),
-                    inputMatricula.getText(),
-                    itemSelecionado,
-                    this.img);
+            int id = Integer.parseInt(inputID.getText());
+            String nome = inputNome.getText();
+            String telefone = inputFone.getText();
+            String cpf = inputCPF.getText();
+            String email = inputEmail.getText();
+            String sexo = inputSexo.getText();
+            String cep = inputCEP.getText();
+            String logradouro = inputLogradouro.getText();
+            String complemento = inputComplemento.getText();
+            String bairro = inputBairro.getText();
+            String cidade = inputCidade.getText();
+            String uf = inputUF.getText();
+            String dataNasc = inputDataNasc.getText();
+            String matricula = inputMatricula.getText();
+            String itemSelecionado = jComboBoxTipo.getSelectedItem().toString();
+
+            Cliente objeto = new Cliente(id,nome,telefone,cpf,email,sexo,cep,logradouro,complemento,bairro,cidade,uf,dataNasc,matricula,itemSelecionado,this.img);
             
             cliente.alterar(id, objeto);
             
             listarCadastros();
             limparCampos();
+
+            msgErro.setText("");
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            System.out.println(ex.getMessage());
+            msgErro.setText(ex.getMessage());
         }
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void inputCEPFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputCEPFocusLost
         try {
             buscarCep();
+            msgErro.setText("");
         } catch (Exception ex) {
-            msgErroCEP.setText(ex.getMessage());
+            System.out.println(ex.getMessage());
+            msgErro.setText(ex.getMessage());
         }
     }//GEN-LAST:event_inputCEPFocusLost
 
@@ -822,7 +822,7 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel msgErroCEP;
+    private javax.swing.JLabel msgErro;
     private javax.swing.JTable tabelaCadastroCliente;
     // End of variables declaration//GEN-END:variables
 }

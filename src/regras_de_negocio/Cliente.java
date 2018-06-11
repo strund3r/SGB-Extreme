@@ -15,13 +15,37 @@ public class Cliente implements TratamentoDeDados{
     private String complemento;
     private String bairro;
     private String cidade;
-    private String Uf;
+    private String uf;
     private String dataNasc;
     private String matricula;
     private String tipo;
     private String caminhoIMG;
 
-    public Cliente(int id, String nome, String fone, String cpf, String email, String sexo, String cep, String logradouro, String complemento, String bairro, String cidade, String uf, String dataNasc, String matricula, String tipo, String caminho) {
+    public Cliente(int id, String nome, String fone, String cpf, String email, String sexo, String cep, String logradouro, String complemento, String bairro, String cidade, String uf, String dataNasc, String matricula, String tipo, String caminho) throws Exception {
+        if(nome.isEmpty()){
+            throw new Exception("Preencha o campo Nome");
+        }
+        if(fone.replaceAll("[^0-9]", "").isEmpty()){
+            throw new Exception("Preencha o campo Telefone");
+        }
+        if(cpf.replaceAll("[^0-9]", "").isEmpty()){
+            throw new Exception("Preencha o campo CPF");
+        }
+        if(logradouro.isEmpty()){
+            throw new Exception("Preencha o campo Rua");
+        }
+        if(bairro.isEmpty()){
+            throw new Exception("Preencha o campo Bairro");
+        }
+        if(cidade.isEmpty()){
+            throw new Exception("Preencha o campo Cidade");
+        }
+        if(uf.isEmpty()){
+            throw new Exception("Preencha o campo UF");
+        }
+        if(matricula.replaceAll("[^0-9]", "").isEmpty()){
+            throw new Exception("Preencha o campo Matricula");
+        }
         this.id = id;
         this.nome = nome;
         this.fone = fone;
@@ -33,7 +57,7 @@ public class Cliente implements TratamentoDeDados{
         this.complemento = complemento;
         this.bairro = bairro;
         this.cidade = cidade;
-        this.Uf = uf;
+        this.uf = uf;
         this.dataNasc = dataNasc;
         this.matricula = matricula;
         this.tipo = tipo;
@@ -87,7 +111,7 @@ public class Cliente implements TratamentoDeDados{
     }
 
     public String getUf() {
-        return Uf;
+        return uf;
     }
 
     public String getDataNasc() {
@@ -151,7 +175,7 @@ public class Cliente implements TratamentoDeDados{
     }
 
     public void setUf(String Uf) {
-        this.Uf = Uf;
+        this.uf = Uf;
     }
 
     public void setDataNasc(String dataNasc) {
@@ -201,21 +225,21 @@ public class Cliente implements TratamentoDeDados{
     @Override
     public String desmaterializar() {
         String saida = getId() + ";"
-                    + getNome() + ";"
-                    + getFone() + ";"
-                    + getCpf() + ";"
-                    + getEmail() + ";"
-                    + getSexo() + ";"
-                    + getCep() + ";"
-                    + getLogradouro() + ";"
-                    + getComplemento() + ";"
-                    + getBairro() + ";"
-                    + getCidade() + ";"
-                    + getUf() + ";"
-                    + getDataNasc() + ";"
-                    + getMatricula() + ";"
-                    + getTipo() + ";"
-                    + getCaminhoIMG();
+                + getNome() + ";"
+                + getFone() + ";"
+                + getCpf() + ";"
+                + getEmail() + ";"
+                + getSexo() + ";"
+                + getCep() + ";"
+                + getLogradouro() + ";"
+                + getComplemento() + ";"
+                + getBairro() + ";"
+                + getCidade() + ";"
+                + getUf() + ";"
+                + getDataNasc() + ";"
+                + getMatricula() + ";"
+                + getTipo() + ";"
+                + getCaminhoIMG();
         return saida;
-    }   
+    }
 }
