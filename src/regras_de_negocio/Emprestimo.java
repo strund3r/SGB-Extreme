@@ -1,6 +1,8 @@
 package regras_de_negocio;
 
-public class Emprestimo {
+import interfaces.TratamentoDeDados;
+
+public class Emprestimo implements TratamentoDeDados{
     
     private int id_emprestimo;
     private int id_cliente;
@@ -57,5 +59,31 @@ public class Emprestimo {
 
     public void setData_devolucao(String data_devolucao) {
         this.data_devolucao = data_devolucao;
+    }
+
+    @Override
+    public void materializar(String dados) throws Exception {
+        String vetorString[] = dados.split(";");
+        if(vetorString.length != 5) {
+            for (int i = 0; i < vetorString.length; i++) {
+                throw new Exception("Faltam dados na posição " + i);
+            }
+        }
+  
+        int id_emprestimo = Integer.parseInt(vetorString[0]);
+        int id_cliente = Integer.parseInt(vetorString[1]);
+        int id_livro = Integer.parseInt(vetorString[2]);
+        
+        setId_emprestimo(id_emprestimo);
+        setId_cliente(id_cliente);
+        setId_livro(id_livro);
+        setData_emprestimo(vetorString[3]);
+        setData_devolucao(vetorString[4]);
+    }
+
+    @Override
+    public String desmaterializar() {
+        String saida = getId_emprestimo()+ ";" + getId_cliente()+ ";" + getId_livro() + ";" + getData_emprestimo()+ ";" + getData_devolucao();
+        return saida;
     }
 }

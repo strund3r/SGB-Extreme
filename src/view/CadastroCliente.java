@@ -492,7 +492,15 @@ public class CadastroCliente extends javax.swing.JFrame {
             new String [] {
                 "ID", "Nome", "Telefone", "CPF", "E-mail", "Sexo", "CEP", "Rua", "Complemento", "Bairro", "Cidade", "UF", "Data Nasc.", "", "Tipo"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tabelaCadastroCliente.setColumnSelectionAllowed(true);
         tabelaCadastroCliente.setSelectionBackground(new java.awt.Color(0, 204, 204));
         tabelaCadastroCliente.addMouseListener(new java.awt.event.MouseAdapter() {

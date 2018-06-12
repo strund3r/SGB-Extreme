@@ -24,11 +24,15 @@ public class CadastroLivro extends javax.swing.JFrame {
     private String img;
     private int clic_tabla;
     
-    public CadastroLivro() throws IOException {
+    public CadastroLivro(String caminho) throws IOException {
         initComponents();
         this.getContentPane().setBackground(Color.WHITE);
         
         listarCadastros();
+        
+        FileWriter fw = new FileWriter(caminho, true);
+        //Criar o buffer do arquivo
+        new BufferedWriter(fw);
     }
 
     @SuppressWarnings("unchecked")
@@ -355,7 +359,15 @@ public class CadastroLivro extends javax.swing.JFrame {
             new String [] {
                 "ID", "Titulo", "Exemplar", "Altor", "Editora", "Edição", "Ano", "Disponibilidade", "ISBN"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tabelaCadastroLivro.setColumnSelectionAllowed(true);
         tabelaCadastroLivro.setSelectionBackground(new java.awt.Color(0, 204, 204));
         tabelaCadastroLivro.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -585,7 +597,7 @@ public class CadastroLivro extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new CadastroLivro().setVisible(true);
+                    new CadastroLivro("/home/aluno/Documentos/cadastroLivro.csv").setVisible(true);
                 } catch (IOException ex) {
                     Logger.getLogger(CadastroLivro.class.getName()).log(Level.SEVERE, null, ex);
                 }
