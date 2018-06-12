@@ -3,8 +3,13 @@ package view;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.RowFilter;
@@ -15,21 +20,23 @@ import regras_de_negocio.Cliente;
 import viacep.ViaCEP;
 import viacep.ViaCEPException;
 
+public class CadastroCliente extends javax.swing.JFrame {
 
-
-public class Cadastro extends javax.swing.JFrame {
-
-    private String nomeArquivo = "/home/umbrellatec/Documentos/cadastro.csv";
+    private String nomeArquivo = "/home/aluno/Documentos/cadastro.csv";
                               //"C:\\Users\\tally\\Documents\\cadastro.csv";
     private String img;
     
     private int clic_tabla;
     
-    public Cadastro() {
+    public CadastroCliente(String caminho) throws IOException {
         initComponents();
         this.getContentPane().setBackground(Color.WHITE);
         
         listarCadastros();
+        
+        FileWriter fw = new FileWriter(caminho, true);
+        //Criar o buffer do arquivo
+        new BufferedWriter(fw);
     }
 
     @SuppressWarnings("unchecked")
@@ -769,8 +776,9 @@ public class Cadastro extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Cadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
         
         //</editor-fold>
@@ -778,7 +786,11 @@ public class Cadastro extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Cadastro().setVisible(true);
+                try {
+                    new CadastroCliente("/home/aluno/Documentos/cadastro.csv").setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

@@ -2,7 +2,7 @@ package interfaces;
 import java.util.ArrayList;
 import regras_de_negocio.Cliente;
 
-public interface CRUD {
+public interface CRUDCliente {
     public int autoincrement() throws Exception;
     void incluir(Cliente objeto) throws Exception;
     public ArrayList<Cliente> recuperar() throws Exception;

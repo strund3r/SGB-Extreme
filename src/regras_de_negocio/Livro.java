@@ -5,24 +5,29 @@ import interfaces.TratamentoDeDados;
 public class Livro implements TratamentoDeDados {
     
     private int id;
-    private String exemplar;
+    private String titulo;
+    private int exemplares;
     private String autor;
+    private String editora;
     private byte edicao;
     private short ano;
     private String disponibilidade;
+    private int isbn;
 
-    public Livro(int id, String exemplar, String autor, byte edicao, short ano, String disponibilidade) {
+    public Livro(int id, String titulo, int exemplar, String autor, String editora, byte edicao, short ano, String disponibilidade, int isbn) {
         this.id = id;
-        this.exemplar = exemplar;
+        this.titulo = titulo;
+        this.exemplares = exemplar;
         this.autor = autor;
+        this.editora = editora;
         this.edicao = edicao;
         this.ano = ano;
         this.disponibilidade = disponibilidade;
+        this.isbn = isbn;
     }
 
-    public Livro() {
-    }   
-    
+    public Livro() {}
+
     public int getId() {
         return id;
     }
@@ -31,12 +36,20 @@ public class Livro implements TratamentoDeDados {
         this.id = id;
     }
 
-    public String getExemplar() {
-        return exemplar;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setExemplar(String exemplar) {
-        this.exemplar = exemplar;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public int getExemplares() {
+        return exemplares;
+    }
+
+    public void setExemplares(int exemplares) {
+        this.exemplares = exemplares;
     }
 
     public String getAutor() {
@@ -45,6 +58,14 @@ public class Livro implements TratamentoDeDados {
 
     public void setAutor(String autor) {
         this.autor = autor;
+    }
+
+    public String getEditora() {
+        return editora;
+    }
+
+    public void setEditora(String editora) {
+        this.editora = editora;
     }
 
     public byte getEdicao() {
@@ -69,29 +90,52 @@ public class Livro implements TratamentoDeDados {
 
     public void setDisponibilidade(String disponibilidade) {
         this.disponibilidade = disponibilidade;
-    }    
+    }
+
+    public int getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(int isbn) {
+        this.isbn = isbn;
+    }
 
     @Override
     public void materializar(String dados) throws Exception {
         String vetorString[] = dados.split(";");
-        if(vetorString.length != 6)
-            throw new Exception("Faltam dados na String");
+        if(vetorString.length != 9) {
+            for (int i = 0; i < vetorString.length; i++) {
+                throw new Exception("Faltam dados na posição " + i);
+            }
+        }
   
-        String idString = String.valueOf(getId());
-        String edicaoString = String.valueOf(getEdicao());
-        String anoString = String.valueOf(ano);
+        int id = Integer.parseInt(vetorString[0]);
+        setId(id);
         
-        idString = vetorString[0];
-        setExemplar(vetorString[1]);
-        setAutor(vetorString[2]);
-        edicaoString = vetorString[3];
-        anoString = vetorString[4];
-        setDisponibilidade(vetorString[5]);
+        setTitulo(vetorString[1]);
+ 
+        int exemplares = Integer.parseInt(vetorString[2]);
+        setExemplares(exemplares);
+        
+        setAutor(vetorString[3]);
+        
+        setEditora(vetorString[4]);
+        
+        byte edicao = Byte.parseByte(vetorString[5]);
+        setEdicao(edicao);
+        
+        short ano = Short.parseShort(vetorString[6]);
+        setAno(ano);
+        
+        setDisponibilidade(vetorString[7]);
+        
+        int isbn = Integer.parseInt(vetorString[8]);
+        setIsbn(isbn);
     }
 
     @Override
     public String desmaterializar() {
-        String saida = getExemplar()+ ";" + getAutor()+ ";" + getEdicao()+ ";" + getAno()+ ";" + getDisponibilidade();
+        String saida = getId()+ ";" + getTitulo()+ ";" + getExemplares()+ ";" + getAutor()+ ";" + getEditora()+ ";" + getEdicao()+ ";" + getAno()+ ";" + getDisponibilidade()+ ";" + getIsbn();
         return saida;
     }
 }

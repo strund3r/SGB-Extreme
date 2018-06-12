@@ -1,28 +1,28 @@
 package persistencia;
+import interfaces.CRUDLivro;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import regras_de_negocio.Cliente;
-import interfaces.CRUDCliente;
+import regras_de_negocio.Livro;
 
-public class ClienteDAO implements CRUDCliente {
+public class LivroDAO implements CRUDLivro {
     private String nomeDoArquivo = "";
 
-    public ClienteDAO(String nomeDoArquivo) {
+    public LivroDAO(String nomeDoArquivo) {
         this.nomeDoArquivo = nomeDoArquivo;
     }
     
     @Override
     public int autoincrement() throws Exception{
-        ArrayList<Cliente> listaDeClientes = this.recuperar();
+        ArrayList<Livro> listaDeClientes = this.recuperar();
         int maior = 0;
         if (listaDeClientes.isEmpty()) {
             return maior;
         }else{
             for (int i = 0; i < listaDeClientes.size(); i++) {
-                Cliente aux = listaDeClientes.get(i);
+                Livro aux = listaDeClientes.get(i);
                 if (aux.getId() > maior) {
                     maior = aux.getId();
                 }
@@ -32,7 +32,7 @@ public class ClienteDAO implements CRUDCliente {
     }
 
     @Override
-    public void incluir(Cliente objeto) throws Exception {
+    public void incluir(Livro objeto) throws Exception {
         //cria o arquivo
         FileWriter fw = new FileWriter(nomeDoArquivo, true);
         //Criar o buffer do arquivo
@@ -44,13 +44,13 @@ public class ClienteDAO implements CRUDCliente {
     }
 
     @Override
-    public ArrayList<Cliente> recuperar() throws Exception {
-        ArrayList<Cliente> listaDeClientes = new ArrayList<>();
+    public ArrayList<Livro> recuperar() throws Exception {
+        ArrayList<Livro> listaDeClientes = new ArrayList<>();
         FileReader fr = new FileReader(nomeDoArquivo);
         BufferedReader br = new BufferedReader(fr);
         String linha = "";
         while ((linha = br.readLine()) != null) {
-            Cliente objetoCliente = new Cliente();
+            Livro objetoCliente = new Livro();
             objetoCliente.materializar(linha);
             listaDeClientes.add(objetoCliente);
         }
@@ -59,11 +59,11 @@ public class ClienteDAO implements CRUDCliente {
     }
     
     @Override
-    public void alterar(int id, Cliente dados) throws Exception {
-        ArrayList<Cliente> listaDeClientes = this.recuperar();
+    public void alterar(int id, Livro dados) throws Exception {
+        ArrayList<Livro> listaDeClientes = this.recuperar();
 
         for (int i = 0; i < listaDeClientes.size(); i++) {
-            Cliente aux = listaDeClientes.get(i);
+            Livro aux = listaDeClientes.get(i);
             if (aux.getId() == id) {
                 this.excluir(id);
                 this.incluir(dados);
@@ -73,13 +73,13 @@ public class ClienteDAO implements CRUDCliente {
 
     @Override
     public void excluir(int id) throws Exception {
-        ArrayList<Cliente> listaDeClientes = this.recuperar();
+        ArrayList<Livro> listaDeClientes = this.recuperar();
         //cria o arquivo
         FileWriter fw = new FileWriter(nomeDoArquivo);
         //Criar o buffer do arquivo
         BufferedWriter bw = new BufferedWriter(fw);
         for (int i = 0; i < listaDeClientes.size(); i++) {
-            Cliente aux = listaDeClientes.get(i);
+            Livro aux = listaDeClientes.get(i);
             if (!(aux.getId() == id)) {
                 bw.write(aux.desmaterializar() + "\n");
             }
