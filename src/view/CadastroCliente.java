@@ -25,15 +25,15 @@ public class CadastroCliente extends javax.swing.JFrame {
     private String nomeArquivo = "/home/aluno/Documentos/cadastro.csv";
                               //"C:\\Users\\tally\\Documents\\cadastro.csv";
     private String img;
-    
+
     private int clic_tabla;
-    
+
     public CadastroCliente(String caminho) throws IOException {
         initComponents();
         this.getContentPane().setBackground(Color.WHITE);
-        
+
         listarCadastros();
-        
+
         FileWriter fw = new FileWriter(caminho, true);
         //Criar o buffer do arquivo
         new BufferedWriter(fw);
@@ -58,7 +58,6 @@ public class CadastroCliente extends javax.swing.JFrame {
         inputComplemento = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        inputSexo = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         inputNome = new javax.swing.JTextField();
@@ -77,6 +76,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         inputMatricula = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
+        sexoComboBox = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         btnCadastrar = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
@@ -87,6 +87,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         tabelaCadastroCliente = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastro Cliente");
         setMinimumSize(new java.awt.Dimension(590, 0));
 
         cardCadastro.setBackground(new java.awt.Color(255, 255, 255));
@@ -156,11 +157,6 @@ public class CadastroCliente extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(102, 102, 102));
         jLabel9.setText("SEXO");
 
-        inputSexo.setForeground(new java.awt.Color(102, 102, 102));
-        inputSexo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        inputSexo.setMaximumSize(new java.awt.Dimension(250, 30));
-        inputSexo.setMinimumSize(new java.awt.Dimension(200, 30));
-
         jLabel10.setBackground(new java.awt.Color(255, 255, 255));
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(102, 102, 102));
@@ -228,8 +224,8 @@ public class CadastroCliente extends javax.swing.JFrame {
         fotoCadastro.setPreferredSize(new java.awt.Dimension(180, 180));
 
         jComboBoxTipo.setForeground(new java.awt.Color(51, 51, 51));
-        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALUNO", "PROFESSOR" }));
-        jComboBoxTipo.setBorder(null);
+        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aluno", "Professor" }));
+        jComboBoxTipo.setSelectedIndex(-1);
         jComboBoxTipo.setMinimumSize(new java.awt.Dimension(150, 30));
         jComboBoxTipo.setPreferredSize(new java.awt.Dimension(56, 30));
 
@@ -274,6 +270,14 @@ public class CadastroCliente extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(102, 102, 102));
         jLabel16.setText("MATRICULA");
+
+        sexoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Feminino" }));
+        sexoComboBox.setSelectedIndex(-1);
+        sexoComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sexoComboBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout cardCadastroLayout = new javax.swing.GroupLayout(cardCadastro);
         cardCadastro.setLayout(cardCadastroLayout);
@@ -338,8 +342,8 @@ public class CadastroCliente extends javax.swing.JFrame {
                                 .addComponent(inputEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(inputSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(sexoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -379,9 +383,9 @@ public class CadastroCliente extends javax.swing.JFrame {
                             .addGroup(cardCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(inputEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(inputSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(inputDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(inputDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(sexoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(7, 7, 7)
                         .addGroup(cardCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(inputLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -490,7 +494,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nome", "Telefone", "CPF", "E-mail", "Sexo", "CEP", "Rua", "Complemento", "Bairro", "Cidade", "UF", "Data Nasc.", "", "Tipo"
+                "ID", "Nome", "Telefone", "CPF", "E-mail", "Sexo", "CEP", "Rua", "Complemento", "Bairro", "Cidade", "UF", "Data Nasc.", "Matrícula", "Tipo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -536,19 +540,20 @@ public class CadastroCliente extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void listarCadastros(){
         try {
             ClienteDAO cadastroClientes = new ClienteDAO(nomeArquivo);
             ArrayList<Cliente>listaDeClientes = cadastroClientes.recuperar();
             //cria tabela para inclusao
             DefaultTableModel model = (DefaultTableModel) tabelaCadastroCliente.getModel();
-            //Limpa a tabela 
+            //Limpa a tabela
             model.setNumRows(0);
             for (int i = 0; i < listaDeClientes.size(); i++) {
                 Cliente aux = listaDeClientes.get(i);
-                
+
                 String[] saida = {
                     String.valueOf(aux.getId()),
                     aux.getNome(),
@@ -573,14 +578,14 @@ public class CadastroCliente extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }
-    
+
     private void limparCampos(){
         inputID.setText("");
         inputNome.setText("");
         inputFone.setText("");
         inputCPF.setText("");
         inputEmail.setText("");
-        inputSexo.setText("");
+        sexoComboBox.setSelectedItem(-1);
         inputCEP.setText("");
         inputLogradouro.setText("");
         inputComplemento.setText("");
@@ -588,9 +593,10 @@ public class CadastroCliente extends javax.swing.JFrame {
         inputCidade.setText("");
         inputUF.setText("");
         inputMatricula.setText("");
+        jComboBoxTipo.setSelectedItem(-1);
         inputDataNasc.setText("");
     }
-    
+
     private void buscarCep() throws ViaCEPException, Exception{
         ViaCEP viaCep = new ViaCEP();
         if(inputCEP.getText().length()==9){
@@ -614,17 +620,17 @@ public class CadastroCliente extends javax.swing.JFrame {
             msgErro.setText("");
         }
     }
-    
+
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         try {
             ClienteDAO cliente = new ClienteDAO(nomeArquivo);
-            
+
             int id = cliente.autoincrement();
             String nome = inputNome.getText();
             String telefone = inputFone.getText();
             String cpf = inputCPF.getText();
             String email = inputEmail.getText();
-            String sexo = inputSexo.getText();
+            String sexo = sexoComboBox.getSelectedItem().toString();
             String cep = inputCEP.getText();
             String logradouro = inputLogradouro.getText();
             String complemento = inputComplemento.getText();
@@ -638,10 +644,10 @@ public class CadastroCliente extends javax.swing.JFrame {
             Cliente objeto = new Cliente(id,nome,telefone,cpf,email,sexo,cep,logradouro,complemento,bairro,cidade,uf,dataNasc,matricula,itemSelecionado,this.img);
 
             cliente.incluir(objeto);
-            
+
             listarCadastros();
             limparCampos();
-            
+
             msgErro.setText("");
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -661,7 +667,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         Image fotoResized = imagem.getScaledInstance(fotoCadastro.getWidth(), fotoCadastro.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon fotoPronta = new ImageIcon(fotoResized);
         fotoCadastro.setIcon(fotoPronta);
-        
+
         img = caminho;
     }//GEN-LAST:event_btnAbrirFotoActionPerformed
 
@@ -675,7 +681,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     private void tabelaCadastroClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCadastroClienteMouseClicked
         this.clic_tabla = tabelaCadastroCliente.rowAtPoint(evt.getPoint());
-        
+
         Object id = tabelaCadastroCliente.getValueAt(this.clic_tabla, 0);
         Object nome = tabelaCadastroCliente.getValueAt(this.clic_tabla, 1);
         Object fone = tabelaCadastroCliente.getValueAt(this.clic_tabla, 2);
@@ -691,13 +697,13 @@ public class CadastroCliente extends javax.swing.JFrame {
         Object dataNasc = tabelaCadastroCliente.getValueAt(this.clic_tabla, 12);
         Object matricula = tabelaCadastroCliente.getValueAt(this.clic_tabla, 13);
         Object tipo = tabelaCadastroCliente.getValueAt(this.clic_tabla, 14);
-        
+
         inputID.setText(String.valueOf(id));
         inputNome.setText(String.valueOf(nome));
         inputFone.setText(String.valueOf(fone));
         inputCPF.setText(String.valueOf(cpf));
         inputEmail.setText(String.valueOf(email));
-        inputSexo.setText(String.valueOf(sexo));
+        sexoComboBox.setSelectedItem(sexo);
         inputCEP.setText(String.valueOf(cep));
         inputLogradouro.setText(String.valueOf(logradouro));
         inputComplemento.setText(String.valueOf(complemento));
@@ -712,10 +718,10 @@ public class CadastroCliente extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         try {
             int id = Integer.parseInt(inputID.getText());
-            
+
             ClienteDAO cliente = new ClienteDAO(nomeArquivo);
             cliente.excluir(id);
-            
+
             listarCadastros();
             limparCampos();
 
@@ -729,13 +735,13 @@ public class CadastroCliente extends javax.swing.JFrame {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         try {
             ClienteDAO cliente = new ClienteDAO(nomeArquivo);
-            
+
             int id = Integer.parseInt(inputID.getText());
             String nome = inputNome.getText();
             String telefone = inputFone.getText();
             String cpf = inputCPF.getText();
             String email = inputEmail.getText();
-            String sexo = inputSexo.getText();
+            String sexo = sexoComboBox.getSelectedItem().toString();
             String cep = inputCEP.getText();
             String logradouro = inputLogradouro.getText();
             String complemento = inputComplemento.getText();
@@ -747,9 +753,9 @@ public class CadastroCliente extends javax.swing.JFrame {
             String itemSelecionado = jComboBoxTipo.getSelectedItem().toString();
 
             Cliente objeto = new Cliente(id,nome,telefone,cpf,email,sexo,cep,logradouro,complemento,bairro,cidade,uf,dataNasc,matricula,itemSelecionado,this.img);
-            
+
             cliente.alterar(id, objeto);
-            
+
             listarCadastros();
             limparCampos();
 
@@ -770,11 +776,15 @@ public class CadastroCliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_inputCEPFocusLost
 
+    private void sexoComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexoComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sexoComboBoxActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -788,7 +798,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -823,7 +833,6 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JTextField inputLogradouro;
     private javax.swing.JTextField inputMatricula;
     private javax.swing.JTextField inputNome;
-    private javax.swing.JTextField inputSexo;
     private javax.swing.JTextField inputUF;
     private javax.swing.JComboBox<String> jComboBoxTipo;
     private javax.swing.JLabel jLabel1;
@@ -845,6 +854,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel msgErro;
+    private javax.swing.JComboBox<String> sexoComboBox;
     private javax.swing.JTable tabelaCadastroCliente;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,13 +3,14 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="Cadastro Cliente"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[590, 0]"/>
     </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -130,8 +131,8 @@
                                   <Component id="inputEmail" min="-2" pref="164" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="inputSexo" min="-2" pref="137" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="sexoComboBox" min="-2" pref="125" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -182,9 +183,9 @@
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                   <Component id="inputEmail" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                   <Component id="jLabel9" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="inputSexo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                   <Component id="jLabel12" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                   <Component id="inputDataNasc" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="sexoComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
@@ -426,24 +427,6 @@
             <Property name="text" type="java.lang.String" value="SEXO"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="inputSexo">
-          <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="66" green="66" red="66" type="rgb"/>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                <EtchetBorder/>
-              </Border>
-            </Property>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[250, 30]"/>
-            </Property>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[200, 30]"/>
-            </Property>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -600,13 +583,11 @@
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">
-                <StringItem index="0" value="ALUNO"/>
-                <StringItem index="1" value="PROFESSOR"/>
+                <StringItem index="0" value="Aluno"/>
+                <StringItem index="1" value="Professor"/>
               </StringArray>
             </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="null"/>
-            </Property>
+            <Property name="selectedIndex" type="int" value="-1"/>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[150, 30]"/>
             </Property>
@@ -733,6 +714,23 @@
             </Property>
             <Property name="text" type="java.lang.String" value="MATRICULA"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="sexoComboBox">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="Masculino"/>
+                <StringItem index="1" value="Feminino"/>
+              </StringArray>
+            </Property>
+            <Property name="selectedIndex" type="int" value="-1"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sexoComboBoxActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -877,7 +875,7 @@
                 <Column editable="false" title="Cidade" type="java.lang.Object"/>
                 <Column editable="false" title="UF" type="java.lang.Object"/>
                 <Column editable="false" title="Data Nasc." type="java.lang.Object"/>
-                <Column editable="false" title="" type="java.lang.Object"/>
+                <Column editable="false" title="Matr&#xed;cula" type="java.lang.Object"/>
                 <Column editable="false" title="Tipo" type="java.lang.Object"/>
               </Table>
             </Property>
