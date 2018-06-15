@@ -1,2 +1,4 @@
 /TCPClient/build/
 /TCPClient/nbproject/private/
+/dist/
+/build/
