@@ -19,11 +19,19 @@ public class Cliente implements TratamentoDeDados{
     private String dataNasc;
     private String matricula;
     private String tipo;
-    private String caminhoIMG;
 
-    public Cliente(int id, String nome, String fone, String cpf, String email, String sexo, String cep, String logradouro, String complemento, String bairro, String cidade, String uf, String dataNasc, String matricula, String tipo, String caminho) throws Exception {
+    public Cliente(int id, String nome, String fone, String cpf, String email, String sexo, String cep, String logradouro, String complemento, String bairro, String cidade, String uf, String dataNasc, String matricula, String tipo) throws Exception {
         
-        Boolean[] empty = {nome.isEmpty(),fone.replaceAll("[^0-9]", "").isEmpty(),cpf.replaceAll("[^0-9]", "").isEmpty(),logradouro.isEmpty(),bairro.isEmpty(),cidade.isEmpty(),uf.isEmpty(),matricula.replaceAll("[^0-9]", "").isEmpty()};
+        Boolean[] empty = {
+            nome.isEmpty(),
+            fone.replaceAll("[^0-9]", "").isEmpty(),
+            cpf.replaceAll("[^0-9]", "").isEmpty(),
+            logradouro.isEmpty(),
+            bairro.isEmpty(),
+            cidade.isEmpty(),
+            uf.isEmpty(),
+            matricula.replaceAll("[^0-9]", "").isEmpty()
+        };
         String[] excessao = {"Nome","Telefone","CPF","Rua","Bairro","Cidade","UF","Matricula"};
         
         for (int i = 0; i < empty.length; i++) {
@@ -47,7 +55,6 @@ public class Cliente implements TratamentoDeDados{
         this.dataNasc = dataNasc;
         this.matricula = matricula;
         this.tipo = tipo;
-        this.caminhoIMG = caminho;
     }
     
     public Cliente() { }
@@ -112,10 +119,6 @@ public class Cliente implements TratamentoDeDados{
         return matricula;
     }
 
-    public String getCaminhoIMG() {
-        return caminhoIMG;
-    }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -175,15 +178,11 @@ public class Cliente implements TratamentoDeDados{
     public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
-
-    public void setCaminhoIMG(String caminhoIMG) {
-        this.caminhoIMG = caminhoIMG;
-    }
     
     @Override
     public void materializar(String dados) throws Exception {
         String vetorString[] = dados.split(";");
-        if(vetorString.length != 16) {
+        if(vetorString.length != 15) {
             for (int i = 0; i < vetorString.length; i++) {
                 throw new Exception("Faltam dados na posição " + i);
             }
@@ -206,7 +205,6 @@ public class Cliente implements TratamentoDeDados{
         setDataNasc(vetorString[12]);
         setMatricula(vetorString[13]);
         setTipo(vetorString[14]);
-        setCaminhoIMG(vetorString[15]);
     }
 
     @Override
@@ -225,8 +223,7 @@ public class Cliente implements TratamentoDeDados{
                 + getUf() + ";"
                 + getDataNasc() + ";"
                 + getMatricula() + ";"
-                + getTipo() + ";"
-                + getCaminhoIMG();
+                + getTipo();
         return saida;
     }
 }

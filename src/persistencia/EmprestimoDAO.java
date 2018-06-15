@@ -61,10 +61,10 @@ public class EmprestimoDAO implements CRUDEmprestimo{
     
     @Override
     public void alterar(int id, Emprestimo dados) throws Exception {
-        ArrayList<Emprestimo> listaDeClientes = this.recuperar();
+        ArrayList<Emprestimo> listaDeEmprestimo = this.recuperar();
 
-        for (int i = 0; i < listaDeClientes.size(); i++) {
-            Emprestimo aux = listaDeClientes.get(i);
+        for (int i = 0; i < listaDeEmprestimo.size(); i++) {
+            Emprestimo aux = listaDeEmprestimo.get(i);
             if (aux.getId_emprestimo()== id) {
                 this.excluir(id);
                 this.incluir(dados);
@@ -74,13 +74,13 @@ public class EmprestimoDAO implements CRUDEmprestimo{
 
     @Override
     public void excluir(int id) throws Exception {
-        ArrayList<Emprestimo> listaDeClientes = this.recuperar();
+        ArrayList<Emprestimo> listaDeEmprestimos = this.recuperar();
         //cria o arquivo
         FileWriter fw = new FileWriter(nomeDoArquivo);
         //Criar o buffer do arquivo
         BufferedWriter bw = new BufferedWriter(fw);
-        for (int i = 0; i < listaDeClientes.size(); i++) {
-            Emprestimo aux = listaDeClientes.get(i);
+        for (int i = 0; i < listaDeEmprestimos.size(); i++) {
+            Emprestimo aux = listaDeEmprestimos.get(i);
             if (!(aux.getId_emprestimo() == id)) {
                 bw.write(aux.desmaterializar() + "\n");
             }

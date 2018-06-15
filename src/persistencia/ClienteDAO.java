@@ -1,14 +1,15 @@
 package persistencia;
+import interfaces.CRUDCliente;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import regras_de_negocio.Cliente;
-import interfaces.CRUDCliente;
 
 public class ClienteDAO implements CRUDCliente {
     private String nomeDoArquivo = "";
+    private TCPClient clientServer = new TCPClient();
 
     public ClienteDAO(String nomeDoArquivo) {
         this.nomeDoArquivo = nomeDoArquivo;
@@ -38,6 +39,7 @@ public class ClienteDAO implements CRUDCliente {
         //Criar o buffer do arquivo
         BufferedWriter bw = new BufferedWriter(fw);
         //Escreve no arquivo
+        //clientServer.enviarReceber(objeto.desmaterializar());
         bw.write(objeto.desmaterializar() + "\n");
         //fecha o arquivo
         bw.close();

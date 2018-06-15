@@ -13,7 +13,19 @@ public class Emprestimo implements TratamentoDeDados{
     public Emprestimo() {
     }   
 
-    public Emprestimo(int id_emprestimo, int id_cliente, int id_livro, String data_emprestimo, String data_devolucao) {
+    public Emprestimo(int id_emprestimo, int id_cliente, int id_livro, String data_emprestimo, String data_devolucao) throws Exception {
+        Boolean[] empty = {
+            String.valueOf(id_cliente).isEmpty(),
+            String.valueOf(id_livro).isEmpty()
+        };
+        String[] excessao = {"Cliente","Livro"};
+        
+        for (int i = 0; i < empty.length; i++) {
+            if (empty[i]) {
+                throw new Exception("Escolha um " + excessao[i]);
+            }
+        }
+        
         this.id_emprestimo = id_emprestimo;
         this.id_cliente = id_cliente;
         this.id_livro = id_livro;

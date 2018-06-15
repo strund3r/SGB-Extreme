@@ -14,7 +14,24 @@ public class Livro implements TratamentoDeDados {
     private String disponibilidade;
     private int isbn;
 
-    public Livro(int id, String titulo, int exemplar, String autor, String editora, byte edicao, short ano, String disponibilidade, int isbn) {
+    public Livro(int id, String titulo, int exemplar, String autor, String editora, byte edicao, short ano, String disponibilidade, int isbn) throws Exception {
+        Boolean[] empty = {
+            titulo.isEmpty(),
+            String.valueOf(exemplar).isEmpty(),
+            autor.isEmpty(),
+            String.valueOf(editora).isEmpty(),
+            String.valueOf(edicao).isEmpty(),
+            String.valueOf(ano).isEmpty(),
+            disponibilidade.isEmpty()
+        };
+        String[] excessao = {"Titulo","Exemplar","Autor","Editora","Edição","Ano","Disponibilidade"};
+        
+        for (int i = 0; i < empty.length; i++) {
+            if (empty[i]) {
+                throw new Exception("Preencha o campo " + excessao[i]);
+            }
+        }
+        
         this.id = id;
         this.titulo = titulo;
         this.exemplares = exemplar;
