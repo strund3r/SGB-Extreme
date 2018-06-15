@@ -3,13 +3,14 @@ package view;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -22,15 +23,11 @@ public class CadastroLivro extends javax.swing.JFrame {
     private String img = null;
     private int clic_tabla;
     
-    public CadastroLivro(String caminho) throws IOException {
+    public CadastroLivro() throws IOException {
         initComponents();
         this.getContentPane().setBackground(Color.WHITE);
         
         listarCadastros();
-        
-        FileWriter fw = new FileWriter(caminho, true);
-        //Criar o buffer do arquivo
-        new BufferedWriter(fw);
     }
 
     @SuppressWarnings("unchecked")
@@ -149,6 +146,7 @@ public class CadastroLivro extends javax.swing.JFrame {
 
         inputDisponibilidade.setForeground(new java.awt.Color(102, 102, 102));
         inputDisponibilidade.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        inputDisponibilidade.setEnabled(false);
         inputDisponibilidade.setMaximumSize(new java.awt.Dimension(250, 30));
         inputDisponibilidade.setMinimumSize(new java.awt.Dimension(200, 30));
 
@@ -355,11 +353,11 @@ public class CadastroLivro extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Titulo", "Exemplar", "Altor", "Editora", "Edição", "Ano", "Disponibilidade", "ISBN", "Imagem"
+                "ID", "Titulo", "Exemplar", "Altor", "Editora", "Edição", "Ano", "Disponibilidade", "ISBN"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -522,6 +520,10 @@ public class CadastroLivro extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         try {
+            String mensagem = "Deseja realmente excluir?";
+            String tituloConfirmar = "Confirmação";
+            int confirmar = JOptionPane.showConfirmDialog(null, mensagem, tituloConfirmar, JOptionPane.YES_NO_OPTION);
+            
             LivroDAO cadastroLivro = new LivroDAO(nomeArquivo);
 
             int id = Integer.parseInt(inputID.getText());
@@ -536,7 +538,9 @@ public class CadastroLivro extends javax.swing.JFrame {
 
             Livro livro = new Livro(id, titulo, exemplar, autor, editora, edicao, ano, disponibilidade, isbn);
 
-            cadastroLivro.alterar(id, livro);
+            if (confirmar == JOptionPane.YES_OPTION){
+                cadastroLivro.alterar(id, livro);
+            }
 
             listarCadastros();
             limparCampos();
@@ -550,10 +554,16 @@ public class CadastroLivro extends javax.swing.JFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         try {
+            String mensagem = "Deseja realmente excluir?";
+            String tituloConfirmar = "Confirmação";
+            int confirmar = JOptionPane.showConfirmDialog(null, mensagem, tituloConfirmar, JOptionPane.YES_NO_OPTION);
+            
             int id = Integer.parseInt(inputID.getText());
 
             LivroDAO cadastroLivro = new LivroDAO(nomeArquivo);
-            cadastroLivro.excluir(id);
+            if (confirmar == JOptionPane.YES_OPTION){
+                cadastroLivro.excluir(id);
+            }
 
             listarCadastros();
             limparCampos();
@@ -598,9 +608,13 @@ public class CadastroLivro extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaCadastroLivroMouseClicked
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        TelaPrincipal principal = new TelaPrincipal();
-        principal.setVisible(true);
-        this.dispose();
+        try {
+            TelaPrincipal principal = new TelaPrincipal();
+            principal.setVisible(true);
+            this.dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(CadastroLivro.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

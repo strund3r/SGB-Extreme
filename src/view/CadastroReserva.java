@@ -1,36 +1,39 @@
 package view;
 
 import java.awt.Color;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import persistencia.ClienteDAO;
-import persistencia.EmprestimoDAO;
 import persistencia.LivroDAO;
+import persistencia.ReservaDAO;
 import regras_de_negocio.Cliente;
-import regras_de_negocio.Emprestimo;
 import regras_de_negocio.Livro;
+import regras_de_negocio.Reserva;
 
-public class CadastroEmprestimo extends javax.swing.JFrame {
-    private String nomeArquivo = "/home/umbrellatec/Documentos/cadastroEmprestimo.csv";
+public class CadastroReserva extends javax.swing.JFrame {
+    private String arquivoReserva = "/home/umbrellatec/Documentos/cadastroReserva.csv";
+    private String arquivoLivro = "/home/umbrellatec/Documentos/cadastroLivro.csv";
+    private String arquivoCliente = "/home/umbrellatec/Documentos/cadastroCliente.csv";
     private String img;
     private int clic_tabla;
+    private int clic_tablaLivro;
+    private int clic_tablaCliente;
 
-    public CadastroEmprestimo(String caminho) throws IOException {
+    public CadastroReserva() throws IOException {
         initComponents();
         this.getContentPane().setBackground(Color.WHITE);
         
-        listarCadastros();
-        
-        FileWriter fw = new FileWriter(caminho, true);
-        //Criar o buffer do arquivo
-        new BufferedWriter(fw);
+        listarReserva();
+        listarCliente();
+        listarLivro();
     }
 
     @SuppressWarnings("unchecked")
@@ -55,10 +58,10 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         inputTipoCliente = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        btnEmprestimo = new javax.swing.JButton();
-        btnDevolver = new javax.swing.JButton();
+        btnReserva = new javax.swing.JButton();
+        btnDesistencia = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
-        inputIDEmprestimo = new javax.swing.JTextField();
+        inputIDReserva = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaCadastroCliente = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -68,7 +71,7 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         inputBuscarCliente = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tabelaCadastroEmprestimo = new javax.swing.JTable();
+        tabelaCadastroReserva = new javax.swing.JTable();
         btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -248,17 +251,17 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(254, 254, 254));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        btnEmprestimo.setText("EMPRESTIMO");
-        btnEmprestimo.addActionListener(new java.awt.event.ActionListener() {
+        btnReserva.setText("RESERVA");
+        btnReserva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEmprestimoActionPerformed(evt);
+                btnReservaActionPerformed(evt);
             }
         });
 
-        btnDevolver.setText("DEVOLUÇÃO");
-        btnDevolver.addActionListener(new java.awt.event.ActionListener() {
+        btnDesistencia.setText("DESISTENCIA");
+        btnDesistencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDevolverActionPerformed(evt);
+                btnDesistenciaActionPerformed(evt);
             }
         });
 
@@ -267,10 +270,10 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
         jLabel16.setForeground(new java.awt.Color(102, 102, 102));
         jLabel16.setText("ID");
 
-        inputIDEmprestimo.setForeground(new java.awt.Color(102, 102, 102));
-        inputIDEmprestimo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        inputIDEmprestimo.setEnabled(false);
-        inputIDEmprestimo.setMinimumSize(new java.awt.Dimension(30, 16));
+        inputIDReserva.setForeground(new java.awt.Color(102, 102, 102));
+        inputIDReserva.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        inputIDReserva.setEnabled(false);
+        inputIDReserva.setMinimumSize(new java.awt.Dimension(30, 16));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -278,13 +281,13 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnEmprestimo)
+                .addComponent(btnReserva)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDevolver)
+                .addComponent(btnDesistencia)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(inputIDEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(inputIDReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -292,12 +295,12 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEmprestimo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputIDEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnDevolver, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(inputIDReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDesistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -383,13 +386,13 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
             }
         });
 
-        tabelaCadastroEmprestimo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        tabelaCadastroEmprestimo.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaCadastroReserva.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        tabelaCadastroReserva.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "ID-Livro", "ID-Cliente", "Data de Emprestimo", "Data de Devolução"
+                "ID", "ID-Livro", "ID-Cliente", "Data de Reserva", "Dia de Emprestimo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -400,15 +403,15 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabelaCadastroEmprestimo.setColumnSelectionAllowed(true);
-        tabelaCadastroEmprestimo.setSelectionBackground(new java.awt.Color(0, 204, 204));
-        tabelaCadastroEmprestimo.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabelaCadastroReserva.setColumnSelectionAllowed(true);
+        tabelaCadastroReserva.setSelectionBackground(new java.awt.Color(0, 204, 204));
+        tabelaCadastroReserva.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelaCadastroEmprestimoMouseClicked(evt);
+                tabelaCadastroReservaMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(tabelaCadastroEmprestimo);
-        tabelaCadastroEmprestimo.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jScrollPane3.setViewportView(tabelaCadastroReserva);
+        tabelaCadastroReserva.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         btnVoltar.setText("VOLTAR");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -479,28 +482,34 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void listarCadastros(){
+    private void listarReserva(){
         try {
-            EmprestimoDAO cadastroEmprestimo = new EmprestimoDAO(nomeArquivo);
-            ArrayList<Emprestimo>listaDeEmprestimos = cadastroEmprestimo.recuperar();
+            ReservaDAO cadastroReserva = new ReservaDAO(arquivoReserva);
+            ArrayList<Reserva>listaDeReserva = cadastroReserva.recuperar();
             //cria tabela para inclusao
-            DefaultTableModel modelEmprestimos = (DefaultTableModel) tabelaCadastroEmprestimo.getModel();
+            DefaultTableModel modelReserva = (DefaultTableModel) tabelaCadastroReserva.getModel();
             //Limpa a tabela 
-            modelEmprestimos.setNumRows(0);
-            for (int i = 0; i < listaDeEmprestimos.size(); i++) {
-                Emprestimo aux = listaDeEmprestimos.get(i);
+            modelReserva.setNumRows(0);
+            for (int i = 0; i < listaDeReserva.size(); i++) {
+                Reserva aux = listaDeReserva.get(i);
                 
                 //Incluir nova linha na Tabela
-                modelEmprestimos.addRow(new String[]{
-                    String.valueOf(aux.getId_emprestimo()),
+                modelReserva.addRow(new String[]{
+                    String.valueOf(aux.getId_reserva()),
                     String.valueOf(aux.getId_livro()),
                     String.valueOf(aux.getId_cliente()),
-                    aux.getData_emprestimo(),
-                    aux.getData_devolucao()
+                    aux.getData_reserva(),
+                    aux.getDia_emprestimo()
                 });
             }
-            
-            LivroDAO cadastroLivro = new LivroDAO("/home/umbrellatec/Documentos/cadastroLivro.csv");
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    private void listarLivro(){
+        try {
+            LivroDAO cadastroLivro = new LivroDAO(arquivoLivro);
             ArrayList<Livro>listaDeLivros = cadastroLivro.recuperar();
             //cria tabela para inclusao
             DefaultTableModel modelLivros = (DefaultTableModel) tabelaCadastroLivro.getModel();
@@ -517,8 +526,14 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
                 //Incluir nova linha na Tabela
                 modelLivros.addRow(saida);
             }
-            
-            ClienteDAO cadastroCliente = new ClienteDAO("/home/umbrellatec/Documentos/cadastroCliente.csv");
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    private void listarCliente(){
+        try {
+            ClienteDAO cadastroCliente = new ClienteDAO(arquivoCliente);
             ArrayList<Cliente>listaDeClientes = cadastroCliente.recuperar();
             //cria tabela para inclusao
             DefaultTableModel modelClientes = (DefaultTableModel) tabelaCadastroCliente.getModel();
@@ -548,35 +563,38 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
         inputDisponibilidade.setText("");
         inputTipoCliente.setText("");
         
-        inputIDEmprestimo.setText("");
+        inputIDReserva.setText("");
     }
     
-    private void btnEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmprestimoActionPerformed
+    private void btnReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservaActionPerformed
         try {
-            EmprestimoDAO cadastroEmprestimo = new EmprestimoDAO(nomeArquivo);
+            ReservaDAO cadastroReserva = new ReservaDAO(arquivoReserva);
 
-            int id_emprestimo = cadastroEmprestimo.autoincrement();
+            int id_reserva = cadastroReserva.autoincrement();
             int id_cliente = Integer.parseInt(inputIDCliente.getText());
             int id_livro = Integer.parseInt(inputIDLivro.getText());
             //LocalDate data_emprestimo = java.time.LocalDate.now();
             
             Calendar cal = GregorianCalendar.getInstance();
-            String data_emprestimo = cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR);
+            String data_atual = cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR);
             
-            int data_devolucao = 0;
+            int data_reserva = 0;
             if ("PROFESSOR".equals(inputTipoCliente.getText())) {
-                data_devolucao = cal.get(Calendar.DAY_OF_MONTH) + 5;
+                data_reserva = cal.get(Calendar.DAY_OF_MONTH) + 5;
             }else if("ALUNO".equals(inputTipoCliente.getText())){
-                data_devolucao = cal.get(Calendar.DAY_OF_MONTH) + 3;
+                data_reserva = cal.get(Calendar.DAY_OF_MONTH) + 3;
             }else{
                 throw new Exception("Tipo não especificado");
             }
 
-            Emprestimo emprestimo = new Emprestimo(id_emprestimo, id_cliente, id_livro, data_emprestimo, String.valueOf(data_devolucao));
+            Reserva reserva = new Reserva(id_reserva, id_cliente, id_livro, data_atual, String.valueOf(data_reserva));
 
-            cadastroEmprestimo.incluir(emprestimo);
+            cadastroReserva.incluir(reserva);
 
-            listarCadastros();
+            listarReserva();
+            listarCliente();
+            listarLivro();
+            
             limparCampos();
 
             msgErro.setText("");
@@ -584,16 +602,25 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
             msgErro.setText(ex.getMessage());
         }
-    }//GEN-LAST:event_btnEmprestimoActionPerformed
+    }//GEN-LAST:event_btnReservaActionPerformed
 
-    private void btnDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolverActionPerformed
+    private void btnDesistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesistenciaActionPerformed
         try {
-            int id = Integer.parseInt(inputIDEmprestimo.getText());
+            String mensagem = "Deseja realmente excluir?";
+            String tituloConfirmar = "Confirmação";
+            int confirmar = JOptionPane.showConfirmDialog(null, mensagem, tituloConfirmar, JOptionPane.YES_NO_OPTION);
+            
+            int id = Integer.parseInt(inputIDReserva.getText());
 
-            EmprestimoDAO cadastroEmprestimo = new EmprestimoDAO(nomeArquivo);
-            cadastroEmprestimo.excluir(id);
+            ReservaDAO cadastroReserva = new ReservaDAO(arquivoReserva);
+            if (confirmar == JOptionPane.YES_OPTION){
+                cadastroReserva.excluir(id);
+            }
 
-            listarCadastros();
+            listarReserva();
+            listarCliente();
+            listarLivro();
+            
             limparCampos();
 
             msgErro.setText("");
@@ -601,7 +628,7 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
             msgErro.setText(ex.getMessage());
         }
-    }//GEN-LAST:event_btnDevolverActionPerformed
+    }//GEN-LAST:event_btnDesistenciaActionPerformed
 
     private void inputBuscarLivroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputBuscarLivroKeyReleased
         DefaultTableModel table = (DefaultTableModel)tabelaCadastroLivro.getModel();
@@ -612,11 +639,11 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
     }//GEN-LAST:event_inputBuscarLivroKeyReleased
 
     private void tabelaCadastroClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCadastroClienteMouseClicked
-        int clic_tabla = tabelaCadastroCliente.rowAtPoint(evt.getPoint());
+        this.clic_tablaCliente = tabelaCadastroCliente.rowAtPoint(evt.getPoint());
         
-        Object id = tabelaCadastroCliente.getValueAt(clic_tabla, 0);
-        Object nome = tabelaCadastroCliente.getValueAt(clic_tabla, 1);
-        Object tipo = tabelaCadastroCliente.getValueAt(clic_tabla, 2);
+        Object id = tabelaCadastroCliente.getValueAt(clic_tablaCliente, 0);
+        Object nome = tabelaCadastroCliente.getValueAt(clic_tablaCliente, 1);
+        Object tipo = tabelaCadastroCliente.getValueAt(clic_tablaCliente, 2);
         
         inputIDCliente.setText(String.valueOf(id));
         inputNome.setText(String.valueOf(nome));
@@ -624,11 +651,11 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaCadastroClienteMouseClicked
 
     private void tabelaCadastroLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCadastroLivroMouseClicked
-        int clic_tabla = tabelaCadastroLivro.rowAtPoint(evt.getPoint());
+        this.clic_tablaLivro = tabelaCadastroLivro.rowAtPoint(evt.getPoint());
 
-        Object id = tabelaCadastroLivro.getValueAt(clic_tabla, 0);
-        Object titulo = tabelaCadastroLivro.getValueAt(clic_tabla, 1);
-        Object disponibilidade = tabelaCadastroLivro.getValueAt(clic_tabla, 2);
+        Object id = tabelaCadastroLivro.getValueAt(clic_tablaLivro, 0);
+        Object titulo = tabelaCadastroLivro.getValueAt(clic_tablaLivro, 1);
+        Object disponibilidade = tabelaCadastroLivro.getValueAt(clic_tablaLivro, 2);
 
         inputIDLivro.setText(String.valueOf(id));
         inputTitulo.setText(String.valueOf(titulo));
@@ -643,23 +670,27 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
         tr.setRowFilter(RowFilter.regexFilter(search));
     }//GEN-LAST:event_inputBuscarClienteKeyReleased
 
-    private void tabelaCadastroEmprestimoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCadastroEmprestimoMouseClicked
+    private void tabelaCadastroReservaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCadastroReservaMouseClicked
         this.clic_tabla = tabelaCadastroCliente.rowAtPoint(evt.getPoint());
         
         Object id = tabelaCadastroCliente.getValueAt(clic_tabla, 0);
         
-        inputIDEmprestimo.setText(String.valueOf(id));
-    }//GEN-LAST:event_tabelaCadastroEmprestimoMouseClicked
+        inputIDReserva.setText(String.valueOf(id));
+    }//GEN-LAST:event_tabelaCadastroReservaMouseClicked
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        TelaPrincipal principal = new TelaPrincipal();
-        principal.setVisible(true);
-        this.dispose();
+        try {
+            TelaPrincipal principal = new TelaPrincipal();
+            principal.setVisible(true);
+            this.dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(CadastroReserva.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDevolver;
-    private javax.swing.JButton btnEmprestimo;
+    private javax.swing.JButton btnDesistencia;
+    private javax.swing.JButton btnReserva;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JPanel cardCadastro;
     private javax.swing.JLabel fotoCadastro1;
@@ -667,8 +698,8 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
     private javax.swing.JTextField inputBuscarLivro;
     private javax.swing.JTextField inputDisponibilidade;
     private javax.swing.JTextField inputIDCliente;
-    private javax.swing.JTextField inputIDEmprestimo;
     private javax.swing.JTextField inputIDLivro;
+    private javax.swing.JTextField inputIDReserva;
     private javax.swing.JTextField inputNome;
     private javax.swing.JTextField inputTipoCliente;
     private javax.swing.JTextField inputTitulo;
@@ -689,7 +720,7 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel msgErro;
     private javax.swing.JTable tabelaCadastroCliente;
-    private javax.swing.JTable tabelaCadastroEmprestimo;
     private javax.swing.JTable tabelaCadastroLivro;
+    private javax.swing.JTable tabelaCadastroReserva;
     // End of variables declaration//GEN-END:variables
 }

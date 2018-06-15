@@ -485,13 +485,13 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnEmprestimo" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnReserva" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnDevolver" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnDesistencia" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="inputIDEmprestimo" min="-2" pref="49" max="-2" attributes="0"/>
+                  <Component id="inputIDReserva" min="-2" pref="49" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -501,12 +501,12 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnEmprestimo" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnReserva" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel16" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="inputIDEmprestimo" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="btnDevolver" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="inputIDReserva" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="btnDesistencia" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -517,20 +517,20 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="btnEmprestimo">
+        <Component class="javax.swing.JButton" name="btnReserva">
           <Properties>
-            <Property name="text" type="java.lang.String" value="EMPRESTIMO"/>
+            <Property name="text" type="java.lang.String" value="RESERVA"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEmprestimoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReservaActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnDevolver">
+        <Component class="javax.swing.JButton" name="btnDesistencia">
           <Properties>
-            <Property name="text" type="java.lang.String" value="DEVOLU&#xc7;&#xc3;O"/>
+            <Property name="text" type="java.lang.String" value="DESISTENCIA"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDevolverActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDesistenciaActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel16">
@@ -547,7 +547,7 @@
             <Property name="text" type="java.lang.String" value="ID"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="inputIDEmprestimo">
+        <Component class="javax.swing.JTextField" name="inputIDReserva">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="66" type="rgb"/>
@@ -743,7 +743,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tabelaCadastroEmprestimo">
+        <Component class="javax.swing.JTable" name="tabelaCadastroReserva">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
@@ -755,8 +755,8 @@
                 <Column editable="false" title="ID" type="java.lang.Object"/>
                 <Column editable="true" title="ID-Livro" type="java.lang.Object"/>
                 <Column editable="true" title="ID-Cliente" type="java.lang.Object"/>
-                <Column editable="true" title="Data de Emprestimo" type="java.lang.Object"/>
-                <Column editable="true" title="Data de Devolu&#xe7;&#xe3;o" type="java.lang.Object"/>
+                <Column editable="true" title="Data de Reserva" type="java.lang.Object"/>
+                <Column editable="true" title="Dia de Emprestimo" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -797,7 +797,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabelaCadastroEmprestimoMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabelaCadastroReservaMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>

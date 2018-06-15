@@ -1,10 +1,11 @@
 package view;
 
 import java.awt.Color;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -16,15 +17,11 @@ public class CadastroUsuario extends javax.swing.JFrame {
     private String nomeArquivo = "/home/umbrellatec/Documentos/cadastroUsuarios.csv";
     private int clic_tabla;
 
-    public CadastroUsuario(String caminho) throws IOException {
+    public CadastroUsuario() throws IOException {
         initComponents();
         this.getContentPane().setBackground(Color.WHITE);
         
         listarCadastros();
-        
-        FileWriter fw = new FileWriter(caminho, true);
-        //Criar o buffer do arquivo
-        new BufferedWriter(fw);
     }
 
     @SuppressWarnings("unchecked")
@@ -313,6 +310,10 @@ public class CadastroUsuario extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         try {
+            String mensagem = "Deseja realmente excluir?";
+            String tituloConfirmar = "Confirmação";
+            int confirmar = JOptionPane.showConfirmDialog(null, mensagem, tituloConfirmar, JOptionPane.YES_NO_OPTION);
+            
             UsuarioDAO cadastroUsuario = new UsuarioDAO(nomeArquivo);
 
             int id = Integer.parseInt(inputID.getText());
@@ -320,8 +321,9 @@ public class CadastroUsuario extends javax.swing.JFrame {
             String senha = inputSenha.getText();
 
             Usuario usuario = new Usuario(id, login, senha);
-
+            if (confirmar == JOptionPane.YES_OPTION){
             cadastroUsuario.alterar(id, usuario);
+            }
 
             listarCadastros();
             limparCampos();
@@ -335,10 +337,16 @@ public class CadastroUsuario extends javax.swing.JFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         try {
+            String mensagem = "Deseja realmente excluir?";
+            String tituloConfirmar = "Confirmação";
+            int confirmar = JOptionPane.showConfirmDialog(null, mensagem, tituloConfirmar, JOptionPane.YES_NO_OPTION);
+            
             int id = Integer.parseInt(inputID.getText());
 
             UsuarioDAO cadastroUsuario = new UsuarioDAO(nomeArquivo);
-            cadastroUsuario.excluir(id);
+            if (confirmar == JOptionPane.YES_OPTION){
+                cadastroUsuario.excluir(id);
+            }
 
             listarCadastros();
             limparCampos();
@@ -369,9 +377,13 @@ public class CadastroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaCadastroLivroMouseClicked
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        TelaPrincipal principal = new TelaPrincipal();
-        principal.setVisible(true);
-        this.dispose();
+        try {
+            TelaPrincipal principal = new TelaPrincipal();
+            principal.setVisible(true);
+            this.dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(CadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

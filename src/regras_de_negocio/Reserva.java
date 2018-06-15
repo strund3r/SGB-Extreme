@@ -2,18 +2,18 @@ package regras_de_negocio;
 
 import interfaces.TratamentoDeDados;
 
-public class Emprestimo implements TratamentoDeDados{
+public class Reserva implements TratamentoDeDados{
     
-    private int id_emprestimo;
+    private int id_reserva;
     private int id_cliente;
     private int id_livro;
-    private String data_emprestimo;
-    private String data_devolucao;
+    private String data_reserva;
+    private String dia_emprestimo;
 
-    public Emprestimo() {
+    public Reserva() {
     }   
 
-    public Emprestimo(int id_emprestimo, int id_cliente, int id_livro, String data_emprestimo, String data_devolucao) throws Exception {
+    public Reserva(int id_reserva, int id_cliente, int id_livro, String data_reserva, String dia_emprestimo) throws Exception {
         Boolean[] empty = {
             String.valueOf(id_cliente).isEmpty(),
             String.valueOf(id_livro).isEmpty()
@@ -26,19 +26,19 @@ public class Emprestimo implements TratamentoDeDados{
             }
         }
         
-        this.id_emprestimo = id_emprestimo;
+        this.id_reserva = id_reserva;
         this.id_cliente = id_cliente;
         this.id_livro = id_livro;
-        this.data_emprestimo = data_emprestimo;
-        this.data_devolucao = data_devolucao;
+        this.data_reserva = data_reserva;
+        this.dia_emprestimo = dia_emprestimo;
     }
 
-    public int getId_emprestimo() {
-        return id_emprestimo;
+    public int getId_reserva() {
+        return id_reserva;
     }
 
-    public void setId_emprestimo(int id_emprestimo) {
-        this.id_emprestimo = id_emprestimo;
+    public void setId_reserva(int id_emprestimo) {
+        this.id_reserva = id_emprestimo;
     }
 
     public int getId_cliente() {
@@ -57,20 +57,20 @@ public class Emprestimo implements TratamentoDeDados{
         this.id_livro = id_livro;
     }
 
-    public String getData_emprestimo() {
-        return data_emprestimo;
+    public String getData_reserva() {
+        return data_reserva;
     }
 
-    public void setData_emprestimo(String data_emprestimo) {
-        this.data_emprestimo = data_emprestimo;
+    public void setData_reserva(String data_reserva) {
+        this.data_reserva = data_reserva;
     }
 
-    public String getData_devolucao() {
-        return data_devolucao;
+    public String getDia_emprestimo() {
+        return dia_emprestimo;
     }
 
-    public void setData_devolucao(String data_devolucao) {
-        this.data_devolucao = data_devolucao;
+    public void setDia_emprestimo(String dia_emprestimo) {
+        this.dia_emprestimo = dia_emprestimo;
     }
 
     @Override
@@ -82,20 +82,20 @@ public class Emprestimo implements TratamentoDeDados{
             }
         }
   
-        int id_emprestimo = Integer.parseInt(vetorString[0]);
+        int id_reserva = Integer.parseInt(vetorString[0]);
         int id_cliente = Integer.parseInt(vetorString[1]);
         int id_livro = Integer.parseInt(vetorString[2]);
         
-        setId_emprestimo(id_emprestimo);
+        setId_reserva(id_reserva);
         setId_cliente(id_cliente);
         setId_livro(id_livro);
-        setData_emprestimo(vetorString[3]);
-        setData_devolucao(vetorString[4]);
+        setData_reserva(vetorString[3]);
+        setDia_emprestimo(vetorString[4]);
     }
 
     @Override
     public String desmaterializar() {
-        String saida = getId_emprestimo()+ ";" + getId_cliente()+ ";" + getId_livro() + ";" + getData_emprestimo()+ ";" + getData_devolucao();
+        String saida = getId_reserva()+ ";" + getId_cliente()+ ";" + getId_livro() + ";" + getData_reserva()+ ";" + getDia_emprestimo();
         return saida;
     }
 }

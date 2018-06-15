@@ -1,17 +1,18 @@
 package view;
 
 import java.awt.Color;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import persistencia.ClienteDAO;
-import persistencia.EmprestimoDAO;
+import persistencia.ReservaDAO;
 import regras_de_negocio.Cliente;
-import regras_de_negocio.Emprestimo;
+import regras_de_negocio.Reserva;
 import viacep.ViaCEP;
 import viacep.ViaCEPException;
 
@@ -21,15 +22,11 @@ public class CadastroCliente extends javax.swing.JFrame {
                               //"C:\\Users\\tally\\Documents\\cadastro.csv";
     private int clic_tabla;
 
-    public CadastroCliente(String caminho) throws IOException {
+    public CadastroCliente() throws IOException {
         initComponents();
         this.getContentPane().setBackground(Color.WHITE);
 
         listarCadastros();
-
-        FileWriter fw = new FileWriter(caminho, true);
-        //Criar o buffer do arquivo
-        new BufferedWriter(fw);
     }
 
     @SuppressWarnings("unchecked")
@@ -674,16 +671,22 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         try {
+            String mensagem = "Deseja realmente excluir?";
+            String tituloConfirmar = "Confirmação";
+            int confirmar = JOptionPane.showConfirmDialog(null, mensagem, tituloConfirmar, JOptionPane.YES_NO_OPTION);
+            
             int id = Integer.parseInt(inputID.getText());
 
             ClienteDAO cadastroClientes = new ClienteDAO(nomeArquivo);
 
-            EmprestimoDAO emprestimoDAO = new EmprestimoDAO("/home/umbrellatec/Documentos/cadastroEmprestimo.csv");
-            ArrayList<Emprestimo> listaDeEmprestimo = emprestimoDAO.recuperar();
+            ReservaDAO emprestimoDAO = new ReservaDAO("/home/umbrellatec/Documentos/cadastroEmprestimo.csv");
+            ArrayList<Reserva> listaDeEmprestimo = emprestimoDAO.recuperar();
             for (int i = 0; i < listaDeEmprestimo.size(); i++) {
-                Emprestimo aux = listaDeEmprestimo.get(i);
+                Reserva aux = listaDeEmprestimo.get(i);
                 if (aux.getId_cliente() != id) {
-                    cadastroClientes.excluir(id);
+                    if (confirmar == JOptionPane.YES_OPTION){
+                        cadastroClientes.excluir(id);
+                    }
                 }else{
                     throw new Exception("Pendente em Emprestimo");
                 }
@@ -701,6 +704,10 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         try {
+            String mensagem = "Deseja realmente excluir?";
+            String titulo = "Confirmação";
+            int confirmar = JOptionPane.showConfirmDialog(null, mensagem, titulo, JOptionPane.YES_NO_OPTION);
+            
             ClienteDAO cadastroClientes = new ClienteDAO(nomeArquivo);
 
             int id = Integer.parseInt(inputID.getText());
@@ -721,7 +728,9 @@ public class CadastroCliente extends javax.swing.JFrame {
 
             Cliente cliente = new Cliente(id,nome,telefone,cpf,email,sexo,cep,logradouro,complemento,bairro,cidade,uf,dataNasc,matricula,itemSelecionado);
 
-            cadastroClientes.alterar(id, cliente);
+            if (confirmar == JOptionPane.YES_OPTION){
+                cadastroClientes.alterar(id, cliente);
+            }
 
             listarCadastros();
             limparCampos();
@@ -744,9 +753,13 @@ public class CadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_inputCEPFocusLost
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        TelaPrincipal principal = new TelaPrincipal();
-        principal.setVisible(true);
-        this.dispose();
+        try {
+            TelaPrincipal principal = new TelaPrincipal();
+            principal.setVisible(true);
+            this.dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -21,10 +21,9 @@ public class Livro implements TratamentoDeDados {
             autor.isEmpty(),
             String.valueOf(editora).isEmpty(),
             String.valueOf(edicao).isEmpty(),
-            String.valueOf(ano).isEmpty(),
-            disponibilidade.isEmpty()
+            String.valueOf(ano).isEmpty()
         };
-        String[] excessao = {"Titulo","Exemplar","Autor","Editora","Edição","Ano","Disponibilidade"};
+        String[] excessao = {"Titulo","Exemplar","Autor","Editora","Edição","Ano"};
         
         for (int i = 0; i < empty.length; i++) {
             if (empty[i]) {
