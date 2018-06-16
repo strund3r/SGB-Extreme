@@ -432,9 +432,9 @@ public class CadastroLivro extends javax.swing.JFrame {
                     aux.getAutor(),
                     aux.getEditora(),
                     String.valueOf(aux.getEdicao()),
-                    String.valueOf(aux.getAno()),
+                    aux.getAno(),
                     aux.getDisponibilidade(),
-                    String.valueOf(aux.getIsbn())
+                    aux.getIsbn()
                 });
             }
         } catch (Exception ex) {
@@ -499,10 +499,10 @@ public class CadastroLivro extends javax.swing.JFrame {
             int exemplar = Integer.parseInt(inputExemplar.getText());
             String autor = inputAutor.getText();
             String editora = inputEditora.getText();
-            byte edicao = Byte.parseByte(inputEdicao.getText());
-            short ano = Short.parseShort(inputAno.getText());
+            int edicao = Integer.parseInt(inputEdicao.getText());
+            String ano = inputAno.getText();
             String disponibilidade = inputDisponibilidade.getText();
-            int isbn = Integer.parseInt(inputISBN.getText());
+            String isbn = inputISBN.getText();
 
             Livro livro = new Livro(id, titulo, exemplar, autor, editora, edicao, ano, disponibilidade, isbn);
 
@@ -526,15 +526,15 @@ public class CadastroLivro extends javax.swing.JFrame {
             
             LivroDAO cadastroLivro = new LivroDAO(nomeArquivo);
 
-            int id = Integer.parseInt(inputID.getText());
+            int id = cadastroLivro.autoincrement();
             String titulo = inputTitulo.getText();
             int exemplar = Integer.parseInt(inputExemplar.getText());
             String autor = inputAutor.getText();
             String editora = inputEditora.getText();
-            byte edicao = Byte.parseByte(inputEdicao.getText());
-            short ano = Short.parseShort(inputAno.getText());
+            int edicao = Integer.parseInt(inputEdicao.getText());
+            String ano = inputAno.getText();
             String disponibilidade = inputDisponibilidade.getText();
-            int isbn = Integer.parseInt(inputISBN.getText());
+            String isbn = inputISBN.getText();
 
             Livro livro = new Livro(id, titulo, exemplar, autor, editora, edicao, ano, disponibilidade, isbn);
 

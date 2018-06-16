@@ -1,10 +1,10 @@
 package view;
 
+import helper.ConversorData;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -19,13 +19,16 @@ import regras_de_negocio.Livro;
 import regras_de_negocio.Reserva;
 
 public class CadastroReserva extends javax.swing.JFrame {
-    private String arquivoReserva = "/home/tallyshenrike/Documentos/cadastroReserva.csv";
-    private String arquivoLivro = "/home/tallyshenrike/Documentos/cadastroLivro.csv";
-    private String arquivoCliente = "/home/tallyshenrike/Documentos/cadastroCliente.csv";
+    private final String arquivoReserva = "/home/tallyshenrike/Documentos/cadastroReserva.csv";
+    private final String arquivoLivro = "/home/tallyshenrike/Documentos/cadastroLivro.csv";
+    private final String arquivoCliente = "/home/tallyshenrike/Documentos/cadastroCliente.csv";
     private String img;
     private int clic_tablaReserva;
     private int clic_tablaLivro;
     private int clic_tablaCliente;
+    
+    static final int DIAS_EMPRESTIMO_PROFESSOR = 60 * 60 * 24 * 5 * 1000;
+    static final int DIAS_EMPRESTIMO_ALUNO = 60 * 60 * 24 * 3 * 1000;
 
     public CadastroReserva() throws IOException {
         initComponents();
@@ -494,7 +497,7 @@ public class CadastroReserva extends javax.swing.JFrame {
                 Reserva aux = listaDeReserva.get(i);
                 
                 //Incluir nova linha na Tabela
-                modelReserva.addRow(new String[]{
+                modelReserva.addRow(new Object[]{
                     String.valueOf(aux.getId_reserva()),
                     String.valueOf(aux.getId_livro()),
                     String.valueOf(aux.getId_cliente()),
@@ -573,21 +576,22 @@ public class CadastroReserva extends javax.swing.JFrame {
             int id_reserva = cadastroReserva.autoincrement();
             int id_cliente = Integer.parseInt(inputIDCliente.getText());
             int id_livro = Integer.parseInt(inputIDLivro.getText());
-            //LocalDate data_emprestimo = java.time.LocalDate.now();
             
-            Calendar cal = GregorianCalendar.getInstance();
-            String data_atual = cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR);
-            
-            int data_reserva = 0;
+            Date data_reserva = new Date(System.currentTimeMillis());
+            Date data_emprestimo;
             if ("PROFESSOR".equals(inputTipoCliente.getText())) {
-                data_reserva = cal.get(Calendar.DAY_OF_MONTH) + 5;
-            }else if("ALUNO".equals(inputTipoCliente.getText())){
-                data_reserva = cal.get(Calendar.DAY_OF_MONTH) + 3;
+                data_emprestimo = new Date(
+                    data_reserva.getTime() + new Date(DIAS_EMPRESTIMO_PROFESSOR).getTime()
+                );
+            }else if ("ALUNO".equals(inputTipoCliente.getText())) {
+                data_emprestimo = new Date(
+                    data_reserva.getTime() + new Date(DIAS_EMPRESTIMO_ALUNO).getTime()
+                );
             }else{
-                throw new Exception("Tipo não especificado");
+                throw new Exception("Tipo não informado");
             }
 
-            Reserva reserva = new Reserva(id_reserva, id_cliente, id_livro, data_atual, String.valueOf(data_reserva));
+            Reserva reserva = new Reserva(id_reserva, id_cliente, id_livro, ConversorData.formatDate(data_reserva), ConversorData.formatDate(data_emprestimo));
 
             cadastroReserva.incluir(reserva);
 
@@ -671,9 +675,9 @@ public class CadastroReserva extends javax.swing.JFrame {
     }//GEN-LAST:event_inputBuscarClienteKeyReleased
 
     private void tabelaCadastroReservaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCadastroReservaMouseClicked
-        int clic_tabla = tabelaCadastroReserva.rowAtPoint(evt.getPoint());
+        this.clic_tablaReserva = tabelaCadastroReserva.rowAtPoint(evt.getPoint());
         
-        Object id = tabelaCadastroReserva.getValueAt(clic_tabla, 0);
+        Object id = tabelaCadastroReserva.getValueAt(clic_tablaReserva, 0);
         
         inputIDReserva.setText(String.valueOf(id));
     }//GEN-LAST:event_tabelaCadastroReservaMouseClicked

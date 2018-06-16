@@ -9,19 +9,19 @@ public class Livro implements TratamentoDeDados {
     private int exemplares;
     private String autor;
     private String editora;
-    private byte edicao;
-    private short ano;
+    private int edicao;
+    private String ano;
     private String disponibilidade;
-    private int isbn;
+    private String isbn;
 
-    public Livro(int id, String titulo, int exemplar, String autor, String editora, byte edicao, short ano, String disponibilidade, int isbn) throws Exception {
+    public Livro(int id, String titulo, int exemplar, String autor, String editora, int edicao, String ano, String disponibilidade, String isbn) throws Exception {
         Boolean[] empty = {
             titulo.isEmpty(),
             String.valueOf(exemplar).isEmpty(),
             autor.isEmpty(),
-            String.valueOf(editora).isEmpty(),
+            editora.isEmpty(),
             String.valueOf(edicao).isEmpty(),
-            String.valueOf(ano).isEmpty()
+            ano.isEmpty()
         };
         String[] excessao = {"Titulo","Exemplar","Autor","Editora","Edição","Ano"};
         
@@ -84,19 +84,19 @@ public class Livro implements TratamentoDeDados {
         this.editora = editora;
     }
 
-    public byte getEdicao() {
+    public int getEdicao() {
         return edicao;
     }
 
-    public void setEdicao(byte edicao) {
+    public void setEdicao(int edicao) {
         this.edicao = edicao;
     }
 
-    public short getAno() {
+    public String getAno() {
         return ano;
     }
 
-    public void setAno(short ano) {
+    public void setAno(String ano) {
         this.ano = ano;
     }
 
@@ -108,11 +108,11 @@ public class Livro implements TratamentoDeDados {
         this.disponibilidade = disponibilidade;
     }
 
-    public int getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(int isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
@@ -137,16 +137,14 @@ public class Livro implements TratamentoDeDados {
         
         setEditora(vetorString[4]);
         
-        byte edicao = Byte.parseByte(vetorString[5]);
+        int edicao = Integer.parseInt(vetorString[5]);
         setEdicao(edicao);
         
-        short ano = Short.parseShort(vetorString[6]);
-        setAno(ano);
+        setAno(vetorString[6]);
         
         setDisponibilidade(vetorString[7]);
         
-        int isbn = Integer.parseInt(vetorString[8]);
-        setIsbn(isbn);
+        setIsbn(vetorString[8]);
     }
 
     @Override

@@ -677,19 +677,19 @@ public class CadastroCliente extends javax.swing.JFrame {
             int id = Integer.parseInt(inputID.getText());
 
             ClienteDAO cadastroClientes = new ClienteDAO(nomeArquivo);
-            //ReservaDAO reservaoDAO = new ReservaDAO("/home/tallyshenrike/Documentos/cadastroReserva.csv");
+            ReservaDAO reservaoDAO = new ReservaDAO("/home/tallyshenrike/Documentos/cadastroReserva.csv");
             
-            //ArrayList<Reserva> listaDeReserva = reservaoDAO.recuperar();
-            //for (int i = 0; i < listaDeReserva.size(); i++) {
-            //    Reserva aux = listaDeReserva.get(i);
-            //    if (aux.getId_cliente() != id) {
+            ArrayList<Reserva> listaDeReserva = reservaoDAO.recuperar();
+            for (int i = 0; i < listaDeReserva.size(); i++) {
+                Reserva aux = listaDeReserva.get(i);
+                if (aux.getId_cliente() != id) {
                     if (confirmar == JOptionPane.YES_OPTION){
                         cadastroClientes.excluir(id);
                     }
-            //    }else{
-            //        throw new Exception("Pendente em Emprestimo");
-            //    }
-            //}
+                }else{
+                    throw new Exception("Pendente em Reserva");
+                }
+            }
 
             listarCadastros();
             limparCampos();

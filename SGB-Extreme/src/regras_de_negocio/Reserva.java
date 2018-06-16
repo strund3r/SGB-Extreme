@@ -10,8 +10,7 @@ public class Reserva implements TratamentoDeDados{
     private String data_reserva;
     private String dia_emprestimo;
 
-    public Reserva() {
-    }   
+    public Reserva() {}
 
     public Reserva(int id_reserva, int id_cliente, int id_livro, String data_reserva, String dia_emprestimo) throws Exception {
         Boolean[] empty = {
