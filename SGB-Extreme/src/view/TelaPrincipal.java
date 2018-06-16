@@ -28,7 +28,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuItemUsuarios = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         menuItemReserva = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
 
@@ -45,6 +48,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1.setText("Cadastros");
 
         menuItemClientes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK));
+        menuItemClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Clientes.png"))); // NOI18N
         menuItemClientes.setText("Clientes");
         menuItemClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -54,6 +58,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1.add(menuItemClientes);
 
         menuItemLivros.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_MASK));
+        menuItemLivros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Livros.png"))); // NOI18N
         menuItemLivros.setText("Livros");
         menuItemLivros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,10 +68,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1.add(menuItemLivros);
 
         menuItemAutores.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.SHIFT_MASK));
+        menuItemAutores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Autores.png"))); // NOI18N
         menuItemAutores.setText("Autores");
         jMenu1.add(menuItemAutores);
 
         menuItemUsuarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.SHIFT_MASK));
+        menuItemUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Usuario.png"))); // NOI18N
         menuItemUsuarios.setText("Usuarios");
         menuItemUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,7 +86,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu2.setText("Gestão");
 
-        menuItemReserva.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, 0));
+        menuItemReserva.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_MASK));
+        menuItemReserva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Reserva.png"))); // NOI18N
         menuItemReserva.setText("Reserva");
         menuItemReserva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,9 +96,35 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(menuItemReserva);
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.SHIFT_MASK));
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Emprestimo.png"))); // NOI18N
+        jMenuItem1.setText("Emprestimo");
+        jMenu2.add(jMenuItem1);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Financeiro");
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.SHIFT_MASK));
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Caixa.png"))); // NOI18N
+        jMenuItem2.setText("Caixa");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem2);
+
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.SHIFT_MASK));
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Multa.png"))); // NOI18N
+        jMenuItem3.setText("Multa");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem3);
+
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Configurações");
@@ -170,6 +204,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -180,6 +222,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem menuItemAutores;
     private javax.swing.JMenuItem menuItemClientes;
     private javax.swing.JMenuItem menuItemLivros;
