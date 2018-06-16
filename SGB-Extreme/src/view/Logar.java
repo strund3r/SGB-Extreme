@@ -1,17 +1,14 @@
 package view;
 
 import java.awt.Color;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import persistencia.UsuarioDAO;
 import regras_de_negocio.Usuario;
 
 
 public class Logar extends javax.swing.JFrame {
     
-    private String nomeArquivo = "/home/aluno/Documentos/cadastroUsuarios.csv";
+    private String nomeArquivo = "/home/tallyshenrike/Documentos/cadastroUsuarios.csv";
     private char senhaVisivel;
 
     public Logar() {

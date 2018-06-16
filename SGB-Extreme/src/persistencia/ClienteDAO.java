@@ -39,7 +39,7 @@ public class ClienteDAO implements CRUDCliente {
         //Criar o buffer do arquivo
         BufferedWriter bw = new BufferedWriter(fw);
         //Escreve no arquivo
-        clientServer.enviarReceber(objeto.desmaterializar());
+        //clientServer.enviarReceber(objeto.desmaterializar());
         bw.write(objeto.desmaterializar() + "\n");
         //fecha o arquivo
         bw.close();

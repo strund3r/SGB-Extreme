@@ -19,11 +19,11 @@ import regras_de_negocio.Livro;
 import regras_de_negocio.Reserva;
 
 public class CadastroReserva extends javax.swing.JFrame {
-    private String arquivoReserva = "/home/aluno/Documentos/cadastroReserva.csv";
-    private String arquivoLivro = "/home/aluno/Documentos/cadastroLivro.csv";
-    private String arquivoCliente = "/home/aluno/Documentos/cadastroCliente.csv";
+    private String arquivoReserva = "/home/tallyshenrike/Documentos/cadastroReserva.csv";
+    private String arquivoLivro = "/home/tallyshenrike/Documentos/cadastroLivro.csv";
+    private String arquivoCliente = "/home/tallyshenrike/Documentos/cadastroCliente.csv";
     private String img;
-    private int clic_tabla;
+    private int clic_tablaReserva;
     private int clic_tablaLivro;
     private int clic_tablaCliente;
 
@@ -671,9 +671,9 @@ public class CadastroReserva extends javax.swing.JFrame {
     }//GEN-LAST:event_inputBuscarClienteKeyReleased
 
     private void tabelaCadastroReservaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCadastroReservaMouseClicked
-        this.clic_tabla = tabelaCadastroCliente.rowAtPoint(evt.getPoint());
+        int clic_tabla = tabelaCadastroReserva.rowAtPoint(evt.getPoint());
         
-        Object id = tabelaCadastroCliente.getValueAt(clic_tabla, 0);
+        Object id = tabelaCadastroReserva.getValueAt(clic_tabla, 0);
         
         inputIDReserva.setText(String.valueOf(id));
     }//GEN-LAST:event_tabelaCadastroReservaMouseClicked

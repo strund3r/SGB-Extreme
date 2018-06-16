@@ -19,7 +19,7 @@ import regras_de_negocio.Livro;
 
 public class CadastroLivro extends javax.swing.JFrame {
 
-    private String nomeArquivo = "/home/aluno/Documentos/cadastroLivro.csv";
+    private String nomeArquivo = "/home/tallyshenrike/Documentos/cadastroLivro.csv";
     private String img = null;
     private int clic_tabla;
     

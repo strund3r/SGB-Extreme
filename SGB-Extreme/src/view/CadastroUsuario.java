@@ -14,7 +14,7 @@ import regras_de_negocio.Usuario;
 
 public class CadastroUsuario extends javax.swing.JFrame {
     
-    private String nomeArquivo = "/home/aluno/Documentos/cadastroUsuarios.csv";
+    private String nomeArquivo = "/home/tallyshenrike/Documentos/cadastroUsuarios.csv";
     private int clic_tabla;
 
     public CadastroUsuario() throws IOException {
