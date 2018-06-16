@@ -11,6 +11,7 @@ public class TCPClient {
         // TODO code application logic here
         String sentence;
         String modifiedSentence;
+        Cliente cliente = new Cliente();
        
         BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
         Socket clientSocket = new Socket("127.0.0.1", 6789);
@@ -18,7 +19,13 @@ public class TCPClient {
         
         BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         
-        sentence = inFromUser.readLine();
+        cliente.setNome("daniel correa da silva");
+        cliente.setCpf("999.999.999.-99");
+        cliente.setPeso(60);
+        cliente.setIdade(20);
+        
+        sentence =  cliente.toString();
+        //inFromUser.readLine();
         outServer.writeBytes(sentence + '\n');
         modifiedSentence = inFromServer.readLine();
         System.out.println("Do Servidor: "+modifiedSentence);
