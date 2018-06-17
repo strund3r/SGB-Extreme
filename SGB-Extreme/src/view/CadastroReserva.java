@@ -31,6 +31,8 @@ public class CadastroReserva extends javax.swing.JFrame {
     private int clic_tablaLivro;
     private int clic_tablaCliente;
     
+    private int clic_tabelaIDLivro;
+    
     static final int DIAS_EMPRESTIMO_PROFESSOR = 60 * 60 * 24 * 5 * 1000;
     static final int DIAS_EMPRESTIMO_ALUNO = 60 * 60 * 24 * 3 * 1000;
 
@@ -82,7 +84,6 @@ public class CadastroReserva extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tabelaCadastroReserva = new javax.swing.JTable();
         btnVoltar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -430,13 +431,6 @@ public class CadastroReserva extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -466,8 +460,6 @@ public class CadastroReserva extends javax.swing.JFrame {
                                 .addComponent(inputBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnVoltar)
-                        .addGap(59, 59, 59)
-                        .addComponent(jButton1)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -475,9 +467,7 @@ public class CadastroReserva extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVoltar)
-                    .addComponent(jButton1))
+                .addComponent(btnVoltar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -616,6 +606,31 @@ public class CadastroReserva extends javax.swing.JFrame {
             int id_cliente = Integer.parseInt(inputIDCliente.getText());
             int id_livro = Integer.parseInt(inputIDLivro.getText());
             
+            LivroDAO cadastroLivro = new LivroDAO(arquivoLivro);
+            ArrayList<Livro> listaDeLivro = cadastroLivro.recuperar();
+            for (int i = 0; i < listaDeLivro.size(); i++) {
+                Livro livro = listaDeLivro.get(i);
+                if (livro.getId() == id_livro) {
+                    if (livro.getDisponibilidade() != 1) {
+                        int subtraiDisponibilidade = livro.getDisponibilidade() - 1;
+                        Livro livro_alterar = new Livro(
+                                livro.getId(),
+                                livro.getTitulo(),
+                                livro.getExemplares(),
+                                livro.getAutor(),
+                                livro.getEditora(),
+                                livro.getEdicao(),
+                                livro.getAno(),
+                                subtraiDisponibilidade,
+                                livro.getIsbn()
+                        );
+                        cadastroLivro.alterar(livro.getId(), livro_alterar);
+                    }else{
+                        throw new Exception("Livro indisponivel para reserva - Apenas 1");
+                    }
+                }
+            }
+            
             Date data_reserva = new Date(System.currentTimeMillis());
             Date data_emprestimo;
             if ("PROFESSOR".equals(inputTipoCliente.getText())) {
@@ -633,7 +648,7 @@ public class CadastroReserva extends javax.swing.JFrame {
             Reserva reserva = new Reserva(id_reserva, id_cliente, id_livro, ConversorData.formatDate(data_reserva), ConversorData.formatDate(data_emprestimo));
 
             cadastroReserva.incluir(reserva);
-
+            
             listarReserva();
             listarCliente();
             listarLivro();
@@ -658,6 +673,31 @@ public class CadastroReserva extends javax.swing.JFrame {
             ReservaDAO cadastroReserva = new ReservaDAO(arquivoReserva);
             if (confirmar == JOptionPane.YES_OPTION){
                 cadastroReserva.excluir(id);
+            }
+            
+            LivroDAO cadastroLivro = new LivroDAO(arquivoLivro);
+            ArrayList<Livro> listaDeLivro = cadastroLivro.recuperar();
+            for (int i = 0; i < listaDeLivro.size(); i++) {
+                Livro livro = listaDeLivro.get(i);
+                if (livro.getId() == clic_tabelaIDLivro) {
+                    if (livro.getDisponibilidade() != 1) {
+                        int subtraiDisponibilidade = livro.getDisponibilidade() + 1;
+                        Livro livro_alterar = new Livro(
+                                livro.getId(),
+                                livro.getTitulo(),
+                                livro.getExemplares(),
+                                livro.getAutor(),
+                                livro.getEditora(),
+                                livro.getEdicao(),
+                                livro.getAno(),
+                                subtraiDisponibilidade,
+                                livro.getIsbn()
+                        );
+                        cadastroLivro.alterar(livro.getId(), livro_alterar);
+                    }else{
+                        throw new Exception("Livro indisponivel para reserva - Apenas 1");
+                    }
+                }
             }
 
             listarReserva();
@@ -717,6 +757,8 @@ public class CadastroReserva extends javax.swing.JFrame {
         this.clic_tablaReserva = tabelaCadastroReserva.rowAtPoint(evt.getPoint());
         
         Object id = tabelaCadastroReserva.getValueAt(clic_tablaReserva, 0);
+        Object id_livro = tabelaCadastroReserva.getValueAt(clic_tablaReserva, 1);
+        this.clic_tabelaIDLivro = Integer.parseInt((String) id_livro);
         
         inputIDReserva.setText(String.valueOf(id));
     }//GEN-LAST:event_tabelaCadastroReservaMouseClicked
@@ -730,10 +772,6 @@ public class CadastroReserva extends javax.swing.JFrame {
             Logger.getLogger(CadastroReserva.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnVoltarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDesistencia;
@@ -750,7 +788,6 @@ public class CadastroReserva extends javax.swing.JFrame {
     private javax.swing.JTextField inputNome;
     private javax.swing.JTextField inputTipoCliente;
     private javax.swing.JTextField inputTitulo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

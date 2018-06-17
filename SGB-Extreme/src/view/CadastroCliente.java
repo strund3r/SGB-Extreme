@@ -703,7 +703,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         try {
-            String mensagem = "Deseja realmente excluir?";
+            String mensagem = "Deseja realmente alterar?";
             String titulo = "Confirmação";
             int confirmar = JOptionPane.showConfirmDialog(null, mensagem, titulo, JOptionPane.YES_NO_OPTION);
             

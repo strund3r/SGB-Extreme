@@ -11,9 +11,6 @@ public class Emprestimo implements TratamentoDeDados{
     private Date dia_emprestimo;
     private Date data_devolucao;
     
-    // 7 Dias em milisegundos
-    //static final int DIAS_EMPRESTIMO = 60 * 60 * 24 * 7 * 1000;
-    
     public Emprestimo(){}
 
     public int getId_emprestimo() {

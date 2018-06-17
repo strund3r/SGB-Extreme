@@ -11,19 +11,21 @@ public class Livro implements TratamentoDeDados {
     private String editora;
     private int edicao;
     private String ano;
-    private String disponibilidade;
+    private int disponibilidade;
     private String isbn;
 
-    public Livro(int id, String titulo, int exemplar, String autor, String editora, int edicao, String ano, String disponibilidade, String isbn) throws Exception {
+    public Livro(int id, String titulo, int exemplar, String autor, String editora, int edicao, String ano, int disponibilidade, String isbn) throws Exception {
         Boolean[] empty = {
             titulo.isEmpty(),
             String.valueOf(exemplar).isEmpty(),
             autor.isEmpty(),
             editora.isEmpty(),
             String.valueOf(edicao).isEmpty(),
-            ano.isEmpty()
+            ano.isEmpty(),
+            String.valueOf(disponibilidade).isEmpty(),
+            isbn.isEmpty()
         };
-        String[] excessao = {"Titulo","Exemplar","Autor","Editora","Edição","Ano"};
+        String[] excessao = {"Titulo","Exemplar","Autor","Editora","Edição","Ano","Disponibilidade","ISBN"};
         
         for (int i = 0; i < empty.length; i++) {
             if (empty[i]) {
@@ -100,11 +102,11 @@ public class Livro implements TratamentoDeDados {
         this.ano = ano;
     }
 
-    public String getDisponibilidade() {
+    public int getDisponibilidade() {
         return disponibilidade;
     }
 
-    public void setDisponibilidade(String disponibilidade) {
+    public void setDisponibilidade(int disponibilidade) {
         this.disponibilidade = disponibilidade;
     }
 
@@ -120,8 +122,13 @@ public class Livro implements TratamentoDeDados {
     public void materializar(String dados) throws Exception {
         String vetorString[] = dados.split(";");
         if(vetorString.length != 9) {
+            /*
             for (int i = 0; i < vetorString.length; i++) {
                 throw new Exception("Faltam dados na posição " + i);
+            }
+            */
+            for (String i : vetorString) {
+                throw new Exception("Faltam dados em " + i);
             }
         }
   
@@ -142,7 +149,8 @@ public class Livro implements TratamentoDeDados {
         
         setAno(vetorString[6]);
         
-        setDisponibilidade(vetorString[7]);
+        int disponibilidade = Integer.parseInt(vetorString[7]);
+        setDisponibilidade(disponibilidade);
         
         setIsbn(vetorString[8]);
     }

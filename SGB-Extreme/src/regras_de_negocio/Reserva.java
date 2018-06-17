@@ -76,7 +76,12 @@ public class Reserva implements TratamentoDeDados{
     public void materializar(String dados) throws Exception {
         String vetorString[] = dados.split(";");
         if(vetorString.length != 5) {
+            /*
             for (int i = 0; i < vetorString.length; i++) {
+                throw new Exception("Faltam dados na posição " + i);
+            }
+            */
+            for (String i : vetorString) {
                 throw new Exception("Faltam dados na posição " + i);
             }
         }

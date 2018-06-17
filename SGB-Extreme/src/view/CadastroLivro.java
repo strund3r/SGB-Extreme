@@ -433,7 +433,7 @@ public class CadastroLivro extends javax.swing.JFrame {
                     aux.getEditora(),
                     String.valueOf(aux.getEdicao()),
                     aux.getAno(),
-                    aux.getDisponibilidade(),
+                    String.valueOf(aux.getDisponibilidade()),
                     aux.getIsbn()
                 });
             }
@@ -501,7 +501,7 @@ public class CadastroLivro extends javax.swing.JFrame {
             String editora = inputEditora.getText();
             int edicao = Integer.parseInt(inputEdicao.getText());
             String ano = inputAno.getText();
-            String disponibilidade = inputDisponibilidade.getText();
+            int disponibilidade = exemplar;
             String isbn = inputISBN.getText();
 
             Livro livro = new Livro(id, titulo, exemplar, autor, editora, edicao, ano, disponibilidade, isbn);
@@ -533,7 +533,7 @@ public class CadastroLivro extends javax.swing.JFrame {
             String editora = inputEditora.getText();
             int edicao = Integer.parseInt(inputEdicao.getText());
             String ano = inputAno.getText();
-            String disponibilidade = inputDisponibilidade.getText();
+            int disponibilidade = exemplar;
             String isbn = inputISBN.getText();
 
             Livro livro = new Livro(id, titulo, exemplar, autor, editora, edicao, ano, disponibilidade, isbn);
