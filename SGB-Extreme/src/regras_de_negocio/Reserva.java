@@ -64,7 +64,7 @@ public class Reserva implements TratamentoDeDados{
         this.data_reserva = data_reserva;
     }
 
-    public String getDia_emprestimo() {
+    public String getData_emprestimo() {
         return dia_emprestimo;
     }
 
@@ -94,7 +94,7 @@ public class Reserva implements TratamentoDeDados{
 
     @Override
     public String desmaterializar() {
-        String saida = getId_reserva()+ ";" + getId_cliente()+ ";" + getId_livro() + ";" + getData_reserva()+ ";" + getDia_emprestimo();
+        String saida = getId_reserva()+ ";" + getId_cliente()+ ";" + getId_livro() + ";" + getData_reserva()+ ";" + getData_emprestimo();
         return saida;
     }
 }

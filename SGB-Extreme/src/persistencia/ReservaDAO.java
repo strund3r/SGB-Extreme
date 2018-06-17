@@ -61,10 +61,10 @@ public class ReservaDAO implements CRUDReserva{
     
     @Override
     public void alterar(int id, Reserva dados) throws Exception {
-        ArrayList<Reserva> listaDeEmprestimo = this.recuperar();
+        ArrayList<Reserva> listaDeReserva = this.recuperar();
 
-        for (int i = 0; i < listaDeEmprestimo.size(); i++) {
-            Reserva aux = listaDeEmprestimo.get(i);
+        for (int i = 0; i < listaDeReserva.size(); i++) {
+            Reserva aux = listaDeReserva.get(i);
             if (aux.getId_reserva()== id) {
                 this.excluir(id);
                 this.incluir(dados);

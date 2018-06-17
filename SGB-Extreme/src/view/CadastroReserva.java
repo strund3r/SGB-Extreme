@@ -3,8 +3,12 @@ package view;
 import helper.ConversorData;
 import java.awt.Color;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -30,13 +34,15 @@ public class CadastroReserva extends javax.swing.JFrame {
     static final int DIAS_EMPRESTIMO_PROFESSOR = 60 * 60 * 24 * 5 * 1000;
     static final int DIAS_EMPRESTIMO_ALUNO = 60 * 60 * 24 * 3 * 1000;
 
-    public CadastroReserva() throws IOException {
+    public CadastroReserva() throws IOException, Exception {
         initComponents();
         this.getContentPane().setBackground(Color.WHITE);
         
         listarReserva();
         listarCliente();
         listarLivro();
+        
+        reservaInspirada();
     }
 
     @SuppressWarnings("unchecked")
@@ -76,6 +82,7 @@ public class CadastroReserva extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tabelaCadastroReserva = new javax.swing.JTable();
         btnVoltar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -423,6 +430,13 @@ public class CadastroReserva extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -452,6 +466,8 @@ public class CadastroReserva extends javax.swing.JFrame {
                                 .addComponent(inputBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnVoltar)
+                        .addGap(59, 59, 59)
+                        .addComponent(jButton1)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -459,7 +475,9 @@ public class CadastroReserva extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnVoltar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnVoltar)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -485,6 +503,27 @@ public class CadastroReserva extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void reservaInspirada() throws Exception{
+        ReservaDAO cadastroReserva = new ReservaDAO(arquivoReserva);
+        ArrayList<Reserva> listaDeReserva = cadastroReserva.recuperar();
+
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar dataAtual = new GregorianCalendar();
+        Calendar deleta_emprestimo = new GregorianCalendar();
+        
+        Date dataSystem = new Date();
+        String converter = format.format(dataSystem);
+        dataAtual.setTime(ConversorData.toDate(converter));
+
+        for (int i = 0; i < listaDeReserva.size(); i++) {
+            Reserva reserva = listaDeReserva.get(i);
+            deleta_emprestimo.setTime(ConversorData.toDate(reserva.getData_emprestimo()));
+            if(dataAtual.getTimeInMillis() > deleta_emprestimo.getTimeInMillis()){
+                cadastroReserva.excluir(reserva.getId_reserva());
+            }
+        }
+    }
+    
     private void listarReserva(){
         try {
             ReservaDAO cadastroReserva = new ReservaDAO(arquivoReserva);
@@ -502,7 +541,7 @@ public class CadastroReserva extends javax.swing.JFrame {
                     String.valueOf(aux.getId_livro()),
                     String.valueOf(aux.getId_cliente()),
                     aux.getData_reserva(),
-                    aux.getDia_emprestimo()
+                    aux.getData_emprestimo()
                 });
             }
         } catch (Exception ex) {
@@ -692,6 +731,10 @@ public class CadastroReserva extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnVoltarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDesistencia;
     private javax.swing.JButton btnReserva;
@@ -707,6 +750,7 @@ public class CadastroReserva extends javax.swing.JFrame {
     private javax.swing.JTextField inputNome;
     private javax.swing.JTextField inputTipoCliente;
     private javax.swing.JTextField inputTitulo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
