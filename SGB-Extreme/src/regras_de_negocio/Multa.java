@@ -1,20 +1,19 @@
 package regras_de_negocio;
 
-public class Multa {
+import interfaces.TratamentoDeDados;
+
+public class Multa implements TratamentoDeDados{
     private int id_multa;
     private int id_cliente;
-    private String descricao;
     private float valor;
 
-    public Multa(int id_multa, int id_emprestimo, String descricao, float valor, String pagamento) {
+    public Multa(int id_multa, int id_emprestimo, float valor) {
         this.id_multa = id_multa;
         this.id_cliente = id_emprestimo;
-        this.descricao = descricao;
         this.valor = valor;
     }
 
-    public Multa() {
-    }
+    public Multa() {}
 
     public int getId_multa() {
         return id_multa;
@@ -31,15 +30,7 @@ public class Multa {
     public void setId_cliente(int id_cliente) {
         this.id_cliente = id_cliente;
     }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
+    
     public float getValor() {
         return valor;
     }
@@ -47,4 +38,28 @@ public class Multa {
     public void setValor(float valor) {
         this.valor = valor;
     }   
+
+    @Override
+    public void materializar(String dados) throws Exception {
+        String vetorString[] = dados.split(";");
+        if(vetorString.length != 2) {
+            for (String i : vetorString) {
+                throw new Exception("Faltam dados na posição " + i);
+            }
+        }
+  
+        int id_multa = Integer.parseInt(vetorString[0]);
+        int id_cliente = Integer.parseInt(vetorString[1]);
+        float valor = Float.parseFloat(vetorString[2]);
+        
+        setId_multa(id_multa);
+        setId_cliente(id_cliente);
+        setValor(valor);
+    }
+
+    @Override
+    public String desmaterializar() {
+        String saida = getId_multa()+ ";" + getId_cliente()+ ";" + getValor();
+        return saida;
+    }
 }

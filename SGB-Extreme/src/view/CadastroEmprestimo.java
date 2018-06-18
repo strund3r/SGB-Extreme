@@ -1,6 +1,7 @@
 package view;
 
 import helper.ConversorData;
+import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,6 +35,7 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
     
     public CadastroEmprestimo() {
         initComponents();
+        this.getContentPane().setBackground(Color.WHITE);
         
         listarEmprestimo();
         listarCliente();
