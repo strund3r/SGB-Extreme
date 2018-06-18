@@ -14,7 +14,7 @@ import regras_de_negocio.Usuario;
 
 public class CadastroUsuario extends javax.swing.JFrame {
     
-    private String nomeArquivo = "/home/tallyshenrike/Documentos/cadastroUsuarios.csv";
+    private String nomeArquivo = "/home/umbrellatec/Documentos/cadastroUsuarios.csv";
     private int clic_tabla;
 
     public CadastroUsuario() throws IOException {
@@ -310,7 +310,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         try {
-            String mensagem = "Deseja realmente excluir?";
+            String mensagem = "Deseja realmente alterar?";
             String tituloConfirmar = "Confirmação";
             int confirmar = JOptionPane.showConfirmDialog(null, mensagem, tituloConfirmar, JOptionPane.YES_NO_OPTION);
             

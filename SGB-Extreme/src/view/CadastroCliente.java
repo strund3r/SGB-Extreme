@@ -18,7 +18,7 @@ import viacep.ViaCEPException;
 
 public class CadastroCliente extends javax.swing.JFrame {
 
-    private String nomeArquivo = "/home/tallyshenrike/Documentos/cadastroCliente.csv";
+    private String nomeArquivo = "/home/umbrellatec/Documentos/cadastroCliente.csv";
     
     private int clic_tabla;
 
@@ -677,7 +677,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             int id = Integer.parseInt(inputID.getText());
 
             ClienteDAO cadastroClientes = new ClienteDAO(nomeArquivo);
-            ReservaDAO reservaoDAO = new ReservaDAO("/home/tallyshenrike/Documentos/cadastroReserva.csv");
+            ReservaDAO reservaoDAO = new ReservaDAO("/home/umbrellatec/Documentos/cadastroReserva.csv");
             
             ArrayList<Reserva> listaDeReserva = reservaoDAO.recuperar();
             for (int i = 0; i < listaDeReserva.size(); i++) {

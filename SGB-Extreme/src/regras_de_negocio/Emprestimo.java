@@ -1,17 +1,37 @@
 package regras_de_negocio;
 
+import helper.ConversorData;
 import interfaces.TratamentoDeDados;
 import java.util.Date;
-import helper.ConversorData;
 
 public class Emprestimo implements TratamentoDeDados{
     private int id_emprestimo;
     private int id_cliente;
     private int id_livro;
-    private Date dia_emprestimo;
-    private Date data_devolucao;
+    private String data_emprestimo;
+    private String data_devolucao;
     
     public Emprestimo(){}
+
+    public Emprestimo(int id_emprestimo, int id_cliente, int id_livro, String data_emprestimo, String data_devolucao) throws Exception {
+        Boolean[] empty = {
+            String.valueOf(id_cliente).isEmpty(),
+            String.valueOf(id_livro).isEmpty()
+        };
+        String[] excessao = {"Cliente","Livro"};
+        
+        for (int i = 0; i < empty.length; i++) {
+            if (empty[i]) {
+                throw new Exception("Escolha um " + excessao[i]);
+            }
+        }
+        
+        this.id_emprestimo = id_emprestimo;
+        this.id_cliente = id_cliente;
+        this.id_livro = id_livro;
+        this.data_emprestimo = data_emprestimo;
+        this.data_devolucao = data_devolucao;
+    }
 
     public int getId_emprestimo() {
         return id_emprestimo;
@@ -37,19 +57,19 @@ public class Emprestimo implements TratamentoDeDados{
         this.id_livro = id_livro;
     }
 
-    public Date getDia_emprestimo() {
-        return dia_emprestimo;
+    public String getData_emprestimo() {
+        return data_emprestimo;
     }
 
-    public void setDia_emprestimo(Date dia_emprestimo) {
-        this.dia_emprestimo = dia_emprestimo;
+    public void setDia_emprestimo(String dia_emprestimo) {
+        this.data_emprestimo = dia_emprestimo;
     }
 
-    public Date getData_devolucao() {
+    public String getData_devolucao() {
         return data_devolucao;
     }
 
-    public void setData_devolucao(Date data_devolucao) {
+    public void setData_devolucao(String data_devolucao) {
         this.data_devolucao = data_devolucao;
     }   
 
@@ -72,12 +92,12 @@ public class Emprestimo implements TratamentoDeDados{
         setId_emprestimo(id_emprestimo);
         setId_cliente(id_cliente);
         setId_livro(id_livro);
-        setDia_emprestimo(emprestimo);
-        setData_devolucao(devolucao);
+        setDia_emprestimo(ConversorData.formatDate(emprestimo));
+        setData_devolucao(ConversorData.formatDate(devolucao));
     }
     @Override
     public String desmaterializar() {
-        String saida = getId_emprestimo()+ ";" + getId_cliente()+ ";" + getId_livro() + ";" + getDia_emprestimo()+ ";" + getData_devolucao();
+        String saida = getId_emprestimo()+ ";" + getId_cliente()+ ";" + getId_livro() + ";" + getData_emprestimo()+ ";" + getData_devolucao();
         return saida;
     }
 }

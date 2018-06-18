@@ -23,9 +23,9 @@ import regras_de_negocio.Livro;
 import regras_de_negocio.Reserva;
 
 public class CadastroReserva extends javax.swing.JFrame {
-    private final String arquivoReserva = "/home/tallyshenrike/Documentos/cadastroReserva.csv";
-    private final String arquivoLivro = "/home/tallyshenrike/Documentos/cadastroLivro.csv";
-    private final String arquivoCliente = "/home/tallyshenrike/Documentos/cadastroCliente.csv";
+    private final String arquivoReserva = "/home/umbrellatec/Documentos/cadastroReserva.csv";
+    private final String arquivoLivro = "/home/umbrellatec/Documentos/cadastroLivro.csv";
+    private final String arquivoCliente = "/home/umbrellatec/Documentos/cadastroCliente.csv";
     private String img;
     private int clic_tablaReserva;
     private int clic_tablaLivro;
@@ -64,7 +64,6 @@ public class CadastroReserva extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         inputIDCliente = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        fotoCadastro1 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         inputTipoCliente = new javax.swing.JTextField();
@@ -73,6 +72,9 @@ public class CadastroReserva extends javax.swing.JFrame {
         btnDesistencia = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         inputIDReserva = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        inputBuscarReserva = new javax.swing.JTextField();
+        btnEmprestimo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaCadastroCliente = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -153,12 +155,6 @@ public class CadastroReserva extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(102, 102, 102));
         jLabel15.setText("TIPO");
 
-        fotoCadastro1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        fotoCadastro1.setText("FOTO");
-        fotoCadastro1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        fotoCadastro1.setMinimumSize(new java.awt.Dimension(180, 180));
-        fotoCadastro1.setPreferredSize(new java.awt.Dimension(180, 180));
-
         jLabel11.setBackground(new java.awt.Color(199, 199, 199));
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(102, 102, 102));
@@ -205,15 +201,10 @@ public class CadastroReserva extends javax.swing.JFrame {
                                         .addComponent(inputDisponibilidade, javax.swing.GroupLayout.PREFERRED_SIZE, 149, Short.MAX_VALUE))))
                             .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(cardCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(cardCadastroLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(fotoCadastro1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(cardCadastroLayout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(inputIDCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(inputIDCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 9, Short.MAX_VALUE))
                     .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(cardCadastroLayout.createSequentialGroup()
                         .addComponent(jLabel15)
@@ -229,20 +220,17 @@ public class CadastroReserva extends javax.swing.JFrame {
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(cardCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(cardCadastroLayout.createSequentialGroup()
-                        .addGroup(cardCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(cardCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputDisponibilidade, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(cardCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputIDLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(fotoCadastro1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(cardCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputDisponibilidade, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(cardCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputIDLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(cardCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,6 +274,27 @@ public class CadastroReserva extends javax.swing.JFrame {
         inputIDReserva.setEnabled(false);
         inputIDReserva.setMinimumSize(new java.awt.Dimension(30, 16));
 
+        jLabel17.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel17.setText("BUSCAR RESERVA");
+
+        inputBuscarReserva.setForeground(new java.awt.Color(102, 102, 102));
+        inputBuscarReserva.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        inputBuscarReserva.setMinimumSize(new java.awt.Dimension(100, 16));
+        inputBuscarReserva.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inputBuscarReservaKeyReleased(evt);
+            }
+        });
+
+        btnEmprestimo.setText("EMPRESTIMO");
+        btnEmprestimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmprestimoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -295,7 +304,13 @@ public class CadastroReserva extends javax.swing.JFrame {
                 .addComponent(btnReserva)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDesistencia)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEmprestimo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(inputBuscarReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(inputIDReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -309,9 +324,14 @@ public class CadastroReserva extends javax.swing.JFrame {
                     .addComponent(btnReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(inputBuscarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(inputIDReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnDesistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnDesistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -486,7 +506,7 @@ public class CadastroReserva extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -679,7 +699,7 @@ public class CadastroReserva extends javax.swing.JFrame {
             ArrayList<Livro> listaDeLivro = cadastroLivro.recuperar();
             for (int i = 0; i < listaDeLivro.size(); i++) {
                 Livro livro = listaDeLivro.get(i);
-                if (livro.getId() == clic_tabelaIDLivro) {
+                if (livro.getId() == this.clic_tabelaIDLivro) {
                     if (livro.getDisponibilidade() != 1) {
                         int subtraiDisponibilidade = livro.getDisponibilidade() + 1;
                         Livro livro_alterar = new Livro(
@@ -773,14 +793,29 @@ public class CadastroReserva extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnVoltarActionPerformed
 
+    private void inputBuscarReservaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputBuscarReservaKeyReleased
+        DefaultTableModel table = (DefaultTableModel)tabelaCadastroReserva.getModel();
+        String search = inputBuscarReserva.getText();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>(table);
+        tabelaCadastroReserva.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(search));
+    }//GEN-LAST:event_inputBuscarReservaKeyReleased
+
+    private void btnEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmprestimoActionPerformed
+        EmprestimoDeReserva emprestimo = new EmprestimoDeReserva();
+        emprestimo.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnEmprestimoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDesistencia;
+    private javax.swing.JButton btnEmprestimo;
     private javax.swing.JButton btnReserva;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JPanel cardCadastro;
-    private javax.swing.JLabel fotoCadastro1;
     private javax.swing.JTextField inputBuscarCliente;
     private javax.swing.JTextField inputBuscarLivro;
+    private javax.swing.JTextField inputBuscarReserva;
     private javax.swing.JTextField inputDisponibilidade;
     private javax.swing.JTextField inputIDCliente;
     private javax.swing.JTextField inputIDLivro;
@@ -795,6 +830,7 @@ public class CadastroReserva extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
