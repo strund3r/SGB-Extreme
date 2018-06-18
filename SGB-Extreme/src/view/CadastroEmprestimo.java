@@ -3,8 +3,12 @@ package view;
 import helper.ConversorData;
 import java.awt.Color;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -14,32 +18,35 @@ import javax.swing.table.TableRowSorter;
 import persistencia.ClienteDAO;
 import persistencia.EmprestimoDAO;
 import persistencia.LivroDAO;
+import persistencia.MultaDAO;
 import regras_de_negocio.Cliente;
 import regras_de_negocio.Emprestimo;
 import regras_de_negocio.Livro;
+import regras_de_negocio.Multa;
 
 public class CadastroEmprestimo extends javax.swing.JFrame {
 
     private final String arquivoEmprestimo = "/home/umbrellatec/Documentos/cadastroEmprestimo.csv";
     private final String arquivoLivro = "/home/umbrellatec/Documentos/cadastroLivro.csv";
     private final String arquivoCliente = "/home/umbrellatec/Documentos/cadastroCliente.csv";
-    private String img;
+    private final String arquivoMulta = "/home/umbrellatec/Documentos/cadastroMulta.csv";
+
     private int clic_tablaEmprestimo;
     private int clic_tablaLivro;
     private int clic_tablaCliente;
     
-    private int clic_tabelaIDLivro;
-    
     static final int DIAS_EMPRESTIMO_PROFESSOR = 60 * 60 * 24 * 15 * 1000;
     static final int DIAS_EMPRESTIMO_ALUNO = 60 * 60 * 24 * 10 * 1000;
     
-    public CadastroEmprestimo() {
+    public CadastroEmprestimo() throws Exception {
         initComponents();
         this.getContentPane().setBackground(Color.WHITE);
         
         listarEmprestimo();
         listarCliente();
         listarLivro();
+        
+        multa();
     }
 
     @SuppressWarnings("unchecked")
@@ -493,6 +500,48 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void multa() throws Exception{
+        EmprestimoDAO cadastroEmprestimo = new EmprestimoDAO(arquivoEmprestimo);
+        ArrayList<Emprestimo> listaDeEmprestimo = cadastroEmprestimo.recuperar();
+        
+        MultaDAO cadastroMulta = new MultaDAO(arquivoMulta);
+        ArrayList<Multa> listaDeMulta = cadastroMulta.recuperar();
+
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar dataAtual = new GregorianCalendar();
+        Calendar deleta_devolucao = new GregorianCalendar();
+        Calendar nova_data = new GregorianCalendar();
+        
+        Date dataSystem = new Date();
+        String converter = format.format(dataSystem);
+        dataAtual.setTime(ConversorData.toDate(converter));
+        
+        float valor = 2;
+
+        for (int i = 0; i < listaDeEmprestimo.size(); i++) {
+            Emprestimo emprestimo = listaDeEmprestimo.get(i);
+            deleta_devolucao.setTime(ConversorData.toDate(emprestimo.getData_devolucao()));
+            
+            if(dataAtual.getTimeInMillis() > deleta_devolucao.getTimeInMillis()){
+                if (listaDeMulta.isEmpty()) {
+                    Multa multa = new Multa(cadastroMulta.autoincrement(), emprestimo.getId_cliente(), String.valueOf(dataAtual), valor);
+                    cadastroMulta.incluir(multa);
+                }else{
+                    for (int m = 0; m < listaDeMulta.size(); m++) {
+                        Multa aux = listaDeMulta.get(m);
+                        nova_data.setTime(ConversorData.toDate(aux.getData()));
+                        if (aux.getId_cliente() == emprestimo.getId_cliente() && dataAtual.getTimeInMillis() > nova_data.getTimeInMillis()) {
+                            valor = aux.getValor();
+                            valor += 2;
+                            Multa multa = new Multa(aux.getId_multa(), emprestimo.getId_cliente(), String.valueOf(dataAtual), valor);
+                            cadastroMulta.alterar(aux.getId_multa(), multa);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     private void listarEmprestimo(){
         try {
             EmprestimoDAO cadastroEmprestimo = new EmprestimoDAO(arquivoEmprestimo);
@@ -598,7 +647,6 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
         Object id = tabelaCadastroEmprestimo.getValueAt(clic_tablaEmprestimo, 0);
         Object id_livro = tabelaCadastroEmprestimo.getValueAt(clic_tablaEmprestimo, 1);
         Object id_cliente = tabelaCadastroEmprestimo.getValueAt(clic_tablaEmprestimo, 2);
-        this.clic_tabelaIDLivro = Integer.parseInt(String.valueOf(id_livro));
 
         inputIDEmprestimo.setText(String.valueOf(id));
         inputIDCliente.setText(String.valueOf(id_livro));

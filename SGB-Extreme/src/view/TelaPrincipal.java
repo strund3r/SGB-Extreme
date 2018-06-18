@@ -232,9 +232,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu5ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        CadastroEmprestimo cadastroEmprestimo = new CadastroEmprestimo();
-        cadastroEmprestimo.setVisible(true);
-        this.dispose();
+        try {
+            CadastroEmprestimo cadastroEmprestimo = new CadastroEmprestimo();
+            cadastroEmprestimo.setVisible(true);
+            this.dispose();
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
