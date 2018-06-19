@@ -3,12 +3,8 @@ package view;
 import helper.ConversorData;
 import java.awt.Color;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -18,11 +14,9 @@ import javax.swing.table.TableRowSorter;
 import persistencia.ClienteDAO;
 import persistencia.EmprestimoDAO;
 import persistencia.LivroDAO;
-import persistencia.MultaDAO;
 import regras_de_negocio.Cliente;
 import regras_de_negocio.Emprestimo;
 import regras_de_negocio.Livro;
-import regras_de_negocio.Multa;
 
 public class CadastroEmprestimo extends javax.swing.JFrame {
 
@@ -46,7 +40,7 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
         listarCliente();
         listarLivro();
         
-        multa();
+        //multa();
     }
 
     @SuppressWarnings("unchecked")
@@ -499,7 +493,7 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/*
     private void multa() throws Exception{
         EmprestimoDAO cadastroEmprestimo = new EmprestimoDAO(arquivoEmprestimo);
         ArrayList<Emprestimo> listaDeEmprestimo = cadastroEmprestimo.recuperar();
@@ -524,24 +518,26 @@ public class CadastroEmprestimo extends javax.swing.JFrame {
             
             if(dataAtual.getTimeInMillis() > deleta_devolucao.getTimeInMillis()){
                 if (listaDeMulta.isEmpty()) {
-                    Multa multa = new Multa(cadastroMulta.autoincrement(), emprestimo.getId_cliente(), String.valueOf(dataAtual), valor);
+                    Multa multa = new Multa(cadastroMulta.autoincrement(), emprestimo.getId_cliente(), emprestimo.getData_devolucao(), valor);
                     cadastroMulta.incluir(multa);
                 }else{
                     for (int m = 0; m < listaDeMulta.size(); m++) {
                         Multa aux = listaDeMulta.get(m);
                         nova_data.setTime(ConversorData.toDate(aux.getData()));
-                        if (aux.getId_cliente() == emprestimo.getId_cliente() && dataAtual.getTimeInMillis() > nova_data.getTimeInMillis()) {
-                            valor = aux.getValor();
-                            valor += 2;
-                            Multa multa = new Multa(aux.getId_multa(), emprestimo.getId_cliente(), String.valueOf(dataAtual), valor);
-                            cadastroMulta.alterar(aux.getId_multa(), multa);
+                        if (aux.getId_cliente() == emprestimo.getId_cliente()) {
+                            if (dataAtual.getTimeInMillis() > nova_data.getTimeInMillis()) {
+                                valor = aux.getValor();
+                                valor += 2;
+                                Multa multa = new Multa(aux.getId_multa(), emprestimo.getId_cliente(), String.valueOf(dataAtual), valor);
+                                cadastroMulta.alterar(aux.getId_multa(), multa);
+                            }
                         }
                     }
                 }
             }
         }
     }
-    
+*/    
     private void listarEmprestimo(){
         try {
             EmprestimoDAO cadastroEmprestimo = new EmprestimoDAO(arquivoEmprestimo);
