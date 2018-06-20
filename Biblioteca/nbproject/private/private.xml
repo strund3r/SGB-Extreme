@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/umbrellatec/Documentos/SGB-Extreme/Biblioteca/src/service/TCPClient.java</file>
-            <file>file:/home/umbrellatec/Documentos/SGB-Extreme/Biblioteca/src/persistencia/LivroDAO1.java</file>
             <file>file:/home/umbrellatec/Documentos/SGB-Extreme/Biblioteca/src/persistencia/LivroDAO.java</file>
-            <file>file:/home/umbrellatec/Documentos/SGB-Extreme/Biblioteca/src/persistencia/CRUDLivro.java</file>
+            <file>file:/home/umbrellatec/Documentos/SGB-Extreme/Biblioteca/src/regras_de_negocio/Livro.java</file>
+            <file>file:/home/umbrellatec/Documentos/SGB-Extreme/Biblioteca/src/view/Principal.java</file>
+            <file>file:/home/umbrellatec/Documentos/SGB-Extreme/Biblioteca/src/interfaces/CRUDLivro.java</file>
         </group>
     </open-files>
 </project-private>

@@ -10,7 +10,6 @@ import regras_de_negocio.Emprestimo;
 
 public class EmprestimoDAO implements CRUDEmprestimo{
     private String nomeDoArquivo = "";
-    private TCPClient clientServer = new TCPClient();
     
     public EmprestimoDAO(String nomeDoArquivo) {
         this.nomeDoArquivo = nomeDoArquivo;

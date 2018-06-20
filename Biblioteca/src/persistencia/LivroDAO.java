@@ -1,14 +1,20 @@
 package persistencia;
 
 import interfaces.CRUDLivro;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import regras_de_negocio.Livro;
 import servidor.TCPClient;
 
 public class LivroDAO implements CRUDLivro {
     private TCPClient clienteServidor;
+    private String nomeDoArquivo = "/home/umbrellatec/Documentos/cadastroLivro.csv";
     
    
     public LivroDAO(){
@@ -18,7 +24,6 @@ public class LivroDAO implements CRUDLivro {
     
     @Override
     public int autoincrement() throws Exception{
-        /*
         ArrayList<Livro> listaDeClientes = this.recuperar();
         int maior = 0;
         if (listaDeClientes.isEmpty()) {
@@ -32,14 +37,12 @@ public class LivroDAO implements CRUDLivro {
             }
             return maior + 1;
         }
-        */
-        return 1;
     }
 
     @Override
-    public void incluir(String str) {
+    public void incluir(Livro obj) {
         try {
-            this.clienteServidor.enviarReceberServidor(str);
+            this.clienteServidor.enviarReceberServidor(this.getClass().getName() + ";" + obj.desmaterializar());
         } catch (IOException ex) {
             Logger.getLogger(LivroDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -47,9 +50,8 @@ public class LivroDAO implements CRUDLivro {
     }
 
     @Override
-    public ArrayList<String> recuperar() throws Exception {
-        ArrayList<String> listaDeClientes = new ArrayList<>();
-        /*
+    public ArrayList<Livro> recuperar() throws Exception {
+        ArrayList<Livro> listaDeClientes = new ArrayList<>();
         FileReader fr = new FileReader(nomeDoArquivo);
         BufferedReader br = new BufferedReader(fr);
         String linha = "";
@@ -59,13 +61,11 @@ public class LivroDAO implements CRUDLivro {
             listaDeClientes.add(objetoCliente);
         }
         br.close();
-        */
         return listaDeClientes;
     }
     
     @Override
-    public void alterar(int id, String dados) throws Exception {
-        /*
+    public void alterar(int id, Livro dados) throws Exception {
         ArrayList<Livro> listaDeClientes = this.recuperar();
         for (int i = 0; i < listaDeClientes.size(); i++) {
             Livro aux = listaDeClientes.get(i);
@@ -74,12 +74,10 @@ public class LivroDAO implements CRUDLivro {
                 this.incluir(dados);
             }
         }
-        */
     }
 
     @Override
     public void excluir(int id) throws Exception {
-        /*
         ArrayList<Livro> listaDeClientes = this.recuperar();
         //cria o arquivo
         FileWriter fw = new FileWriter(nomeDoArquivo);
@@ -92,6 +90,5 @@ public class LivroDAO implements CRUDLivro {
             }
         }
         bw.close();
-        */
     }
 }

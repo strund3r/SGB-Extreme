@@ -10,10 +10,11 @@ import regras_de_negocio.Cliente;
 
 public class ClienteDAO implements CRUDCliente {
     private String nomeDoArquivo = "";
-    private TCPClient clientServer = new TCPClient();
+    //private TCPClient clienteServidor;
 
     public ClienteDAO(String nomeDoArquivo) {
         this.nomeDoArquivo = nomeDoArquivo;
+        //clienteServidor = new TCPClient();
     }
     
     @Override
@@ -44,6 +45,9 @@ public class ClienteDAO implements CRUDCliente {
         bw.write(objeto.desmaterializar() + "\n");
         //fecha o arquivo
         bw.close();
+        
+        //ENVIAR PARA O SERVIDOR
+        //this.clienteServidor.enviarReceberServidor(this.getClass().getName() + ";" + objeto.desmaterializar());
     }
 
     @Override
