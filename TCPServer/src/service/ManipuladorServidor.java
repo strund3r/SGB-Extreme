@@ -39,7 +39,7 @@ public class ManipuladorServidor extends TCPServer {
                     dadoString.split(";")[9]
                  );
                 
-                LivroDAO livroDAO = new LivroDAO("/home/umbrellatec/Documentos/cadastroLivro.csv");
+                LivroDAO livroDAO = new LivroDAO("/home/ec2-user/cadastroLivro.csv");
 
                 livroDAO.incluir(livro);
             }else if ("persistencia.ClienteDAO".equals(dadoString.split(";")[0])) {
@@ -60,7 +60,7 @@ public class ManipuladorServidor extends TCPServer {
                     dadoString.split(";")[14],
                     dadoString.split(";")[15]
                 );
-                ClienteDAO cadastroClientes = new ClienteDAO("/home/umbrellatec/Documentos/cadastroCliente.csv");
+                ClienteDAO cadastroClientes = new ClienteDAO("/home/ec2-user/cadastroCliente.csv");
                 cadastroClientes.incluir(cliente);
             }
             
