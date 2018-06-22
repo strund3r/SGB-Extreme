@@ -208,7 +208,6 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         tipoComboBox.setForeground(new java.awt.Color(51, 51, 51));
         tipoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALUNO", "PROFESSOR" }));
-        tipoComboBox.setBorder(null);
         tipoComboBox.setMinimumSize(new java.awt.Dimension(150, 30));
         tipoComboBox.setPreferredSize(new java.awt.Dimension(56, 30));
 
@@ -249,7 +248,6 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         sexoComboBox.setForeground(new java.awt.Color(51, 51, 51));
         sexoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MASCULINO", "FEMININO" }));
-        sexoComboBox.setBorder(null);
         sexoComboBox.setMinimumSize(new java.awt.Dimension(150, 30));
         sexoComboBox.setPreferredSize(new java.awt.Dimension(56, 30));
 
