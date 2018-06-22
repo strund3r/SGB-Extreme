@@ -17,14 +17,14 @@ public class ManipuladorServidor extends TCPServer {
             //OutputStream os = data.getOutputStream();
             // Process the data socket here.
             String dadoString;
-            
+
 
             BufferedReader noCliente = new BufferedReader(new InputStreamReader(data.getInputStream()));
             DataOutputStream saidaCliente = new DataOutputStream(data.getOutputStream());
-            
+
             dadoString = noCliente.readLine();
             System.out.println(dadoString);
-            
+
             Livro livro = null;
             if ("persistencia.LivroDAO".equals(dadoString.split(";")[0])) {
                 livro = new Livro(
@@ -38,8 +38,8 @@ public class ManipuladorServidor extends TCPServer {
                     Integer.parseInt(dadoString.split(";")[8]),
                     dadoString.split(";")[9]
                  );
-                
-                LivroDAO livroDAO = new LivroDAO("/home/ec2-user/cadastroLivro.csv");
+
+                LivroDAO livroDAO = new LivroDAO("/app/database/cadastroLivro.csv");
 
                 livroDAO.incluir(livro);
             }else if ("persistencia.ClienteDAO".equals(dadoString.split(";")[0])) {
@@ -60,10 +60,10 @@ public class ManipuladorServidor extends TCPServer {
                     dadoString.split(";")[14],
                     dadoString.split(";")[15]
                 );
-                ClienteDAO cadastroClientes = new ClienteDAO("/home/ec2-user/cadastroCliente.csv");
+                ClienteDAO cadastroClientes = new ClienteDAO("/app/database/cadastroCliente.csv");
                 cadastroClientes.incluir(cliente);
             }
-            
+
             saidaCliente.writeBytes("");
         } catch (Exception e) {}
     }
