@@ -31,9 +31,8 @@ public class ManipuladorServidor extends TCPServer {
             dadoString = noCliente.readLine();
             System.out.println(dadoString);
             
-            Livro livro = null;
             if ("persistencia.LivroDAO".equals(dadoString.split(";")[0])) {
-                livro = new Livro(
+                Livro livro = new Livro(
                     Integer.parseInt(dadoString.split(";")[1]),
                     dadoString.split(";")[2],
                     Integer.parseInt(dadoString.split(";")[3]),
