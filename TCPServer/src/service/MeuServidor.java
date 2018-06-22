@@ -9,6 +9,7 @@ public class MeuServidor {
         TCPServer server = new ManipuladorServidor();
 
         try {
+            System.out.printf("*** SERVIDOR INICIADO! ***\n\n");
             server.iniciarServidor(2020);
         } catch (IOException ex) {
             Logger.getLogger(MeuServidor.class.getName()).log(Level.SEVERE, null, ex);
