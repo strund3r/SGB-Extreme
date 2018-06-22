@@ -18,8 +18,8 @@ import viacep.ViaCEPException;
 
 public class CadastroCliente extends javax.swing.JFrame {
 
-    private String nomeArquivo = "/home/umbrellatec/Documentos/cadastroCliente.csv";
-    
+    private String nomeArquivo = "/app/database/cadastroCliente.csv";
+
     private int clic_tabla;
 
     public CadastroCliente() throws IOException {
@@ -673,12 +673,12 @@ public class CadastroCliente extends javax.swing.JFrame {
             String mensagem = "Deseja realmente excluir?";
             String tituloConfirmar = "Confirmação";
             int confirmar = JOptionPane.showConfirmDialog(null, mensagem, tituloConfirmar, JOptionPane.YES_NO_OPTION);
-            
+
             int id = Integer.parseInt(inputID.getText());
 
             ClienteDAO cadastroClientes = new ClienteDAO(nomeArquivo);
-            ReservaDAO reservaoDAO = new ReservaDAO("/home/umbrellatec/Documentos/cadastroReserva.csv");
-            
+            ReservaDAO reservaoDAO = new ReservaDAO("/app/database/cadastroReserva.csv");
+
             ArrayList<Reserva> listaDeReserva = reservaoDAO.recuperar();
             for (int i = 0; i < listaDeReserva.size(); i++) {
                 Reserva aux = listaDeReserva.get(i);
@@ -706,7 +706,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             String mensagem = "Deseja realmente alterar?";
             String titulo = "Confirmação";
             int confirmar = JOptionPane.showConfirmDialog(null, mensagem, titulo, JOptionPane.YES_NO_OPTION);
-            
+
             ClienteDAO cadastroClientes = new ClienteDAO(nomeArquivo);
 
             int id = Integer.parseInt(inputID.getText());
@@ -765,7 +765,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -778,7 +778,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Logar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -786,9 +786,9 @@ public class CadastroCliente extends javax.swing.JFrame {
             public void run() {
                 try {
                     new Logar().setVisible(true);
-                    
-                    ClienteDAO cadastroClientes = new ClienteDAO("/home/umbrellatec/Documentos/cadastroCliente.csv");
-                    
+
+                    ClienteDAO cadastroClientes = new ClienteDAO("/app/database/cadastroCliente.csv");
+
                     int id = cadastroClientes.autoincrement();
                     String nome = "tallys";
                     String telefone = "(62)98183-8897";
@@ -804,9 +804,9 @@ public class CadastroCliente extends javax.swing.JFrame {
                     String dataNasc = "26/04/1999";
                     String matricula = "123456789";
                     String itemSelecionado = "PROFESSOR";
-                    
+
                     Cliente cliente = new Cliente(id,nome,telefone,cpf,email,sexo,cep,logradouro,complemento,bairro,cidade,uf,dataNasc,matricula,itemSelecionado);
-                    
+
                     cadastroClientes.incluir(cliente);
                 } catch (Exception ex) {
                     Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -814,7 +814,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             }
         });
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCadastrar;
