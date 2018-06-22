@@ -5,9 +5,15 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import persistencia.ClienteDAO;
+import persistencia.EmprestimoDAO;
 import persistencia.LivroDAO;
+import persistencia.ReservaDAO;
+import persistencia.UsuarioDAO;
 import regras_de_negocio.Cliente;
+import regras_de_negocio.Emprestimo;
 import regras_de_negocio.Livro;
+import regras_de_negocio.Reserva;
+import regras_de_negocio.Usuario;
 
 public class ManipuladorServidor extends TCPServer {
     @Override
@@ -39,7 +45,7 @@ public class ManipuladorServidor extends TCPServer {
                     dadoString.split(";")[9]
                  );
                 
-                LivroDAO livroDAO = new LivroDAO("/home/ec2-user/cadastroLivro.csv");
+                LivroDAO livroDAO = new LivroDAO("/app/database/cadastroLivro.csv");
 
                 livroDAO.incluir(livro);
             }else if ("persistencia.ClienteDAO".equals(dadoString.split(";")[0])) {
@@ -60,8 +66,36 @@ public class ManipuladorServidor extends TCPServer {
                     dadoString.split(";")[14],
                     dadoString.split(";")[15]
                 );
-                ClienteDAO cadastroClientes = new ClienteDAO("/home/ec2-user/cadastroCliente.csv");
+                ClienteDAO cadastroClientes = new ClienteDAO("/app/database/cadastroCliente.csv");
                 cadastroClientes.incluir(cliente);
+            }else if ("persistencia.ReservaDAO".equals(dadoString.split(";")[0])) {
+                ReservaDAO cadastroReserva = new ReservaDAO("/app/database/cadastroReserva.csv");
+                Reserva reserva = new Reserva(
+                        Integer.parseInt(dadoString.split(";")[1]),
+                        Integer.parseInt(dadoString.split(";")[2]),
+                        Integer.parseInt(dadoString.split(";")[3]),
+                        dadoString.split(";")[4],
+                        dadoString.split(";")[5]
+                );
+                cadastroReserva.incluir(reserva);
+            }else if ("persistencia.EmprestimoDAO".equals(dadoString.split(";")[0])) {
+                EmprestimoDAO cadastroEmprestimo = new EmprestimoDAO("/app/database/cadastroEmprestimo.csv");
+                Emprestimo emprestimo = new Emprestimo(
+                        Integer.parseInt(dadoString.split(";")[1]),
+                        Integer.parseInt(dadoString.split(";")[2]),
+                        Integer.parseInt(dadoString.split(";")[3]),
+                        dadoString.split(";")[4],
+                        dadoString.split(";")[5]
+                );
+                cadastroEmprestimo.incluir(emprestimo);
+            }else if ("persistencia.UsuarioDAO".equals(dadoString.split(";")[0])) {
+                UsuarioDAO cadastroUsuario = new UsuarioDAO("/app/database/cadastroUsuarios.csv");
+                Usuario usuario = new Usuario(
+                        Integer.parseInt(dadoString.split(";")[1]),
+                        dadoString.split(";")[2],
+                        dadoString.split(";")[3]
+                );
+                cadastroUsuario.incluir(usuario);
             }
             
             saidaCliente.writeBytes("");

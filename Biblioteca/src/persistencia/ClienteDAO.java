@@ -37,16 +37,6 @@ public class ClienteDAO implements CRUDCliente {
 
     @Override
     public void incluir(Cliente objeto) throws Exception {
-        //cria o arquivo
-        FileWriter fw = new FileWriter(nomeDoArquivo, true);
-        //Criar o buffer do arquivo
-        BufferedWriter bw = new BufferedWriter(fw);
-        //Escreve no arquivo
-        //clientServer.enviarReceber(objeto.desmaterializar());
-        bw.write(objeto.desmaterializar() + "\n");
-        //fecha o arquivo
-        bw.close();
-        
         //ENVIAR PARA O SERVIDOR
         this.clienteServidor.enviarReceberServidor(this.getClass().getName() + ";" + objeto.desmaterializar());
     }

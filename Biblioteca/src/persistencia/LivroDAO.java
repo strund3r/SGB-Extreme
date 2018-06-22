@@ -19,7 +19,6 @@ public class LivroDAO implements CRUDLivro {
    
     public LivroDAO(){
         clienteServidor = new TCPClient();
-        
     }
     
     @Override

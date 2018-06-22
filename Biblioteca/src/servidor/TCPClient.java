@@ -13,7 +13,7 @@ public class TCPClient {
         // TODO code application logic here
                
         BufferedReader noUsuario = new BufferedReader(new InputStreamReader(System.in));
-        Socket socketDoCliente = new Socket("127.0.0.1", 6789);
+        Socket socketDoCliente = new Socket("34.224.209.18", 2020);
         DataOutputStream saidaServidor = new DataOutputStream(socketDoCliente.getOutputStream());
         
         BufferedReader noServidor = new BufferedReader(new InputStreamReader(socketDoCliente.getInputStream()));

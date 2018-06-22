@@ -10,7 +10,6 @@ import regras_de_negocio.Cliente;
 
 public class ClienteDAO implements CRUDCliente {
     private String nomeDoArquivo = "";
-    private TCPClient clientServer = new TCPClient();
 
     public ClienteDAO(String nomeDoArquivo) {
         this.nomeDoArquivo = nomeDoArquivo;
