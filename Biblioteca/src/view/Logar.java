@@ -1,9 +1,15 @@
 package view;
 
 import java.awt.Color;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.Socket;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import persistencia.UsuarioDAO;
 import regras_de_negocio.Usuario;
+import servidor.TCPClient;
 
 public class Logar extends javax.swing.JFrame {
 
@@ -38,6 +44,9 @@ public class Logar extends javax.swing.JFrame {
         jLabelolhoFechado = new javax.swing.JLabel();
         btnAcessar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        statusConexãoLabel = new javax.swing.JLabel();
+        botaoAtualizar = new javax.swing.JButton();
+        campoStatusConexao = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -55,6 +64,11 @@ public class Logar extends javax.swing.JFrame {
         inputLogin.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         inputLogin.setMaximumSize(new java.awt.Dimension(250, 30));
         inputLogin.setMinimumSize(new java.awt.Dimension(200, 30));
+        inputLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputLoginActionPerformed(evt);
+            }
+        });
         inputLogin.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 inputLoginKeyPressed(evt);
@@ -171,6 +185,18 @@ public class Logar extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/transferir.png"))); // NOI18N
 
+        statusConexãoLabel.setText("Status Conexão:");
+
+        botaoAtualizar.setText("Atualizar");
+        botaoAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAtualizarActionPerformed(evt);
+            }
+        });
+
+        campoStatusConexao.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        campoStatusConexao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -184,19 +210,32 @@ public class Logar extends javax.swing.JFrame {
                         .addComponent(jLabelolhoFechado)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAcessar)
-                            .addComponent(jCheckBox1))))
+                            .addComponent(jCheckBox1)
+                            .addComponent(btnAcessar))
+                        .addGap(176, 176, 176)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(statusConexãoLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campoStatusConexao, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(botaoAtualizar))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelolhoFechado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabelolhoFechado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(statusConexãoLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(campoStatusConexao, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAcessar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAcessar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoAtualizar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(msgErro, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -228,6 +267,7 @@ public class Logar extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAcessarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcessarActionPerformed
@@ -237,16 +277,16 @@ public class Logar extends javax.swing.JFrame {
             String login = inputLogin.getText();
             String senha = inputSenha.getText();
 
-            ArrayList<Usuario> listaDeUsuario = cadastroUsuario.recuperar();
-
-            for (int i = 0; i < listaDeUsuario.size(); i++) {
-                Usuario aux = listaDeUsuario.get(i);
-                if (aux.getLogin().equals(login) && aux.getSenha().equals(senha)) {
-                    TelaPrincipal principal = new TelaPrincipal();
-                    principal.setVisible(true);
-                    this.dispose();
-                }
-            }
+            // ArrayList<Usuario> listaDeUsuario = cadastroUsuario.recuperar();
+            //
+            // for (int i = 0; i < listaDeUsuario.size(); i++) {
+            //     Usuario aux = listaDeUsuario.get(i);
+            //     if (aux.getLogin().equals(login) && aux.getSenha().equals(senha)) {
+            //         TelaPrincipal principal = new TelaPrincipal();
+            //         principal.setVisible(true);
+            //         this.dispose();
+            //     }
+            // }
 
             if ("admin".equals(login) && "admin123".equals(senha)) {
                 TelaPrincipal principal = new TelaPrincipal();
@@ -304,6 +344,27 @@ public class Logar extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAcessarKeyPressed
 
+    private void inputLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputLoginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputLoginActionPerformed
+
+    private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
+        try {
+            Socket socketDoCliente = new Socket("34.224.209.18", 2020);
+            //boolean teste = socketDoCliente.getInetAddress().isReachable(5);
+            boolean teste = socketDoCliente.isConnected();
+
+            if(teste == true){
+                campoStatusConexao.setText("Conectado");
+            }else{
+                campoStatusConexao.setText("Desconectado");
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(Logar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_botaoAtualizarActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -334,7 +395,9 @@ public class Logar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoAtualizar;
     private javax.swing.JButton btnAcessar;
+    private javax.swing.JLabel campoStatusConexao;
     private javax.swing.JPanel cardCadastro3;
     private javax.swing.JTextField inputLogin;
     private javax.swing.JPasswordField inputSenha;
@@ -349,5 +412,6 @@ public class Logar extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel msgErro;
+    private javax.swing.JLabel statusConexãoLabel;
     // End of variables declaration//GEN-END:variables
 }
