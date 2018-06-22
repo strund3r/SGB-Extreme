@@ -23,11 +23,11 @@ public class ManipuladorServidor extends TCPServer {
             //OutputStream os = data.getOutputStream();
             // Process the data socket here.
             String dadoString;
-            
+
 
             BufferedReader noCliente = new BufferedReader(new InputStreamReader(data.getInputStream()));
             DataOutputStream saidaCliente = new DataOutputStream(data.getOutputStream());
-            
+
             dadoString = noCliente.readLine();
             System.out.println(dadoString);
             
@@ -96,7 +96,7 @@ public class ManipuladorServidor extends TCPServer {
                 );
                 cadastroUsuario.incluir(usuario);
             }
-            
+
             saidaCliente.writeBytes("");
         } catch (Exception e) {}
     }

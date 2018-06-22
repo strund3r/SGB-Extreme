@@ -11,11 +11,11 @@ public class TCPClient {
 
     public String enviarReceberServidor(String dados) throws UnknownHostException, IOException {
         // TODO code application logic here
-               
+
         BufferedReader noUsuario = new BufferedReader(new InputStreamReader(System.in));
         Socket socketDoCliente = new Socket("34.224.209.18", 2020);
         DataOutputStream saidaServidor = new DataOutputStream(socketDoCliente.getOutputStream());
-        
+
         BufferedReader noServidor = new BufferedReader(new InputStreamReader(socketDoCliente.getInputStream()));
 
         saidaServidor.writeBytes(dados + '\n');

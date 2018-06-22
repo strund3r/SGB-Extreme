@@ -10,13 +10,13 @@ import persistencia.MultaDAO;
 import regras_de_negocio.Multa;
 
 public class ListagemMulta extends javax.swing.JFrame {
-    
-    private final String arquivoMulta = "/home/umbrellatec/Documentos/cadastroMulta.csv";
+
+    private final String arquivoMulta = "/app/database/cadastroMulta.csv";
 
     public ListagemMulta() {
         initComponents();
         this.getContentPane().setBackground(Color.WHITE);
-        
+
         listarMulta();
     }
 
@@ -91,7 +91,7 @@ public class ListagemMulta extends javax.swing.JFrame {
             ArrayList<Multa>listaDeMulta = tabela_listagem_multa.recuperar();
             //cria tabela para inclusao
             DefaultTableModel modelReserva = (DefaultTableModel) tabelaListagemMulta.getModel();
-            //Limpa a tabela 
+            //Limpa a tabela
             modelReserva.setNumRows(0);
             for (int i = 0; i < listaDeMulta.size(); i++) {
                 Multa aux = listaDeMulta.get(i);
@@ -106,7 +106,7 @@ public class ListagemMulta extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }
-    
+
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         try {
             TelaPrincipal principal = new TelaPrincipal();

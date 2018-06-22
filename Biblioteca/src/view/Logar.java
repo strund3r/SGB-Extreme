@@ -6,18 +6,18 @@ import persistencia.UsuarioDAO;
 import regras_de_negocio.Usuario;
 
 public class Logar extends javax.swing.JFrame {
-    
-    private String nomeArquivo = "/home/umbrellatec/Documentos/cadastroUsuarios.csv";
+
+    private String nomeArquivo = "/app/database/cadastroUsuarios.csv";
     private char senhaVisivel;
 
     public Logar() {
         initComponents();
         this.getContentPane().setBackground(Color.WHITE);
-        
+
         senhaVisivel = inputSenha.getEchoChar();
     }
-    
-    
+
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -233,10 +233,10 @@ public class Logar extends javax.swing.JFrame {
     private void btnAcessarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcessarActionPerformed
         try {
             UsuarioDAO cadastroUsuario = new UsuarioDAO(nomeArquivo);
-            
+
             String login = inputLogin.getText();
             String senha = inputSenha.getText();
-            
+
             ArrayList<Usuario> listaDeUsuario = cadastroUsuario.recuperar();
 
             for (int i = 0; i < listaDeUsuario.size(); i++) {
@@ -247,7 +247,7 @@ public class Logar extends javax.swing.JFrame {
                     this.dispose();
                 }
             }
-            
+
             if ("admin".equals(login) && "admin123".equals(senha)) {
                 TelaPrincipal principal = new TelaPrincipal();
                 principal.setVisible(true);
@@ -255,7 +255,7 @@ public class Logar extends javax.swing.JFrame {
             }else{
                 throw new Exception("Usuário ou senha incorreto");
             }
-            
+
             msgErro.setText("");
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -264,16 +264,16 @@ public class Logar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAcessarActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-       
+
         if (jCheckBox1.isSelected()){
         inputSenha.setEchoChar('\0');
         jLabelolhoFechado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Olho Aberto.png")));
-        
+
         } else {
-        
+
             inputSenha.setEchoChar(senhaVisivel);
             jLabelolhoFechado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Olho Fechado.png")));
-        
+
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
@@ -282,33 +282,33 @@ public class Logar extends javax.swing.JFrame {
     }//GEN-LAST:event_inputSenhaActionPerformed
 
     private void inputLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputLoginKeyPressed
-         
+
         if (evt.getKeyCode() == evt.VK_ENTER){
             inputSenha.requestFocus();
         }
-        
+
     }//GEN-LAST:event_inputLoginKeyPressed
 
     private void inputSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputSenhaKeyPressed
-            
+
         if (evt.getKeyCode() == evt.VK_ENTER){
             btnAcessar.requestFocus();
         }
     }//GEN-LAST:event_inputSenhaKeyPressed
 
     private void btnAcessarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnAcessarKeyPressed
-            
+
         if (evt.getKeyCode() == evt.VK_ENTER){
-            
-            
+
+
         }
     }//GEN-LAST:event_btnAcessarKeyPressed
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -322,7 +322,7 @@ public class Logar extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
